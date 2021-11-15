@@ -185,7 +185,7 @@ definitions:
     - "phone"
     - "address"
     properties:
-      id:
+      id_customer:
         type: "string"
       name: 
         type: "string"
@@ -211,7 +211,7 @@ definitions:
     - "floor"
     - "flat"
     properties:
-      id:
+      id_address:
         type: "string"
       city: 
         type: "string"
