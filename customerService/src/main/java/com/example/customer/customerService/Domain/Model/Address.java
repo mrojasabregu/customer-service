@@ -15,6 +15,7 @@ public class Address {
     private String city;
     private String street;
     private Long streetNumber;
-    private Long floor;
+    private Long floorNumber;
     private String flat;
+    private Customer customer;
 }

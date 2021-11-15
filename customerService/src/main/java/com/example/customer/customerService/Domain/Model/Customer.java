@@ -18,5 +18,4 @@ public class Customer {
     private Long documentNumber;
     private String email;
     private Long phone;
-    private Address address;
 }
