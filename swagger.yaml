@@ -1,0 +1,265 @@
+swagger: "2.0"
+info:
+  description: "Customers service for the shopping cart."
+  version: "1.0.0"
+  title: "Spotify-Service"
+  license:
+    name: "Apache 2.0"
+    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+host: "localhost:8080"
+tags:
+- name: "Customer"
+  description: "Customer operations"
+  
+
+schemes:
+- "https"
+- "http"
+
+paths:
+  /customer:
+    get:
+      tags:
+      - "Customer"
+      summary: "get a Customer by document"
+      operationId: "GetCustomerByDocument"
+      produces:
+        - "application/json"
+      parameters:
+      - name: "document_type"
+        in: "query"
+        description: "document type"
+        required: true
+        type: "string"
+      - name: "document_number"
+        in: "query"
+        description: "document number"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/Customer"
+        400:
+          description: "Bad Request"
+          schema:
+            $ref: "#/definitions/ErrorBadRequestResponse"
+        404:
+          description: "Not Found"
+          schema:
+            $ref: "#/definitions/ErrorNotFoundResponse"
+        500:
+          description: "Internal Server Error"
+          schema:
+            $ref: "#/definitions/ErrorInternalServerResponse"
+  
+  /customers:
+    get:
+      tags:
+      - "Customer"
+      summary: "get Customers by name"
+      operationId: "GetCustomersByDocument"
+      produces:
+        - "application/json"
+      parameters:
+      - in: query
+        name: "queryParams"
+        required: true
+        type: "array"
+        items:
+            type: string
+            enum:
+              - name
+              - last_name
+              - email
+              - phone
+        
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: '#/definitions/ArrayOfCustomers'
+        400:
+          description: "Bad Request"
+          schema:
+            $ref: "#/definitions/ErrorBadRequestResponse"
+        404:
+          description: "Not Found"
+          schema:
+            $ref: "#/definitions/ErrorNotFoundResponse"
+        500:
+          description: "Internal Server Error"
+          schema:
+            $ref: "#/definitions/ErrorInternalServerResponse"
+
+  /customer/{id_customer}/address/{id_address}:
+    get:
+      tags:
+      - "Customer"
+      summary: "Get Customer address by id_address"
+      operationId: "GetAddressById"
+      produces:
+        - "application/json"
+      parameters:
+      - name: "id_customer"
+        in: "path"
+        description: "Customer id"
+        required: true
+        type: "string"
+      - name: "id_address"
+        in: "path"
+        description: "Address id"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: '#/definitions/Address'
+        400:
+          description: "Bad Request"
+          schema:
+            $ref: "#/definitions/ErrorBadRequestResponse"
+        404:
+          description: "Not Found"
+          schema:
+            $ref: "#/definitions/ErrorNotFoundResponse"
+        500:
+          description: "Internal Server Error"
+          schema:
+            $ref: "#/definitions/ErrorInternalServerResponse"
+        
+  /customer/{id_customer}/addresses:
+    get:
+      tags:
+      - "Customer"
+      summary: "Get all Customer's addresses"
+      operationId: "GetCustomerAddresses"
+      produces:
+        - "application/json"
+      parameters:
+      - name: "id_customer"
+        in: "path"
+        description: "Customer id"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: '#/definitions/ArrayOfAddress'
+        400:
+          description: "Bad Request"
+          schema:
+            $ref: "#/definitions/ErrorBadRequestResponse"
+        404:
+          description: "Not Found"
+          schema:
+            $ref: "#/definitions/ErrorNotFoundResponse"
+        500:
+          description: "Internal Server Error"
+          schema:
+            $ref: "#/definitions/ErrorInternalServerResponse"
+      
+
+definitions:
+
+  ArrayOfCustomers:
+    type: "array"
+    items:
+      $ref: "#/definitions/Customer"
+      
+  ArrayOfAddress:
+    type: "array"
+    items:
+      $ref: "#/definitions/Address"
+  
+  Customer:
+    type: "object"
+    required:
+    - "name"
+    - "last_name"
+    - "document_type"
+    - "document_number"
+    - "email"
+    - "phone"
+    - "address"
+    properties:
+      id_customer:
+        type: "string"
+      name: 
+        type: "string"
+      last_name:
+        type: "string"
+      document_type:
+        type: "string"
+      email: 
+        type: "string"
+      document_number: 
+        type: "number"
+      phone: 
+        type: "number"
+      address:
+        $ref: "#/definitions/ArrayOfAddress"
+
+  Address:
+    type: "object"
+    required:
+    - "city"
+    - "street"
+    - "street_number"
+    - "floor"
+    - "flat"
+    properties:
+      id_address:
+        type: "string"
+      city: 
+        type: "string"
+      street: 
+        type: "string"
+      street_number: 
+        type: "number"
+      floor: 
+        type: "number"
+      flat: 
+        type: "string"
+      
+  ErrorNotFoundResponse:
+    type: "object"
+    properties:
+      code:
+        type: "string"
+        example: "GENERIC_NOT_FOUND"
+      message:
+        type: "string"
+        example: "Resource Not Found"
+      result:
+        type: "string"
+        example: "GENERIC_NOT_FOUND"
+  
+  ErrorBadRequestResponse:
+    type: "object"
+    properties:
+      code:
+        type: "string"
+        example: "GENERIC_BAD_REQUEST"
+      message:
+        type: "string"
+        example: "Invalid Request"
+      result:
+        type: "string"
+        example: "GENERIC_NOT_FOUND"
+  
+  ErrorInternalServerResponse:
+    type: "object"
+    properties:
+      code:
+        type: "string"
+        example: "GENERIC_INTERNAL_SERVER_ERROR"
+      message:
+        type: "string"
+        example: "Internal Server Error"
+      result:
+        type: "string"
+        example: "GENERIC_INTERNAL_SERVER_ERROR"
