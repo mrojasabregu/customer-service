@@ -8,15 +8,16 @@ info:
     url: "http://www.apache.org/licenses/LICENSE-2.0.html"
 host: "localhost:8080"
 tags:
-- name: "Customers"
+- name: "Customer"
   description: "Customer operations"
+  
 
 schemes:
 - "https"
 - "http"
 
 paths:
-  /customer{document_type}{document_number}:
+  /customer:
     get:
       tags:
       - "Customer"
@@ -26,12 +27,12 @@ paths:
         - "application/json"
       parameters:
       - name: "document_type"
-        in: "path"
+        in: "query"
         description: "document type"
         required: true
         type: "string"
       - name: "document_number"
-        in: "path"
+        in: "query"
         description: "document number"
         required: true
         type: "string"
@@ -53,7 +54,7 @@ paths:
           schema:
             $ref: "#/definitions/ErrorInternalServerResponse"
   
-  /customers{queryParams}:
+  /customers:
     get:
       tags:
       - "Customer"
@@ -62,7 +63,7 @@ paths:
       produces:
         - "application/json"
       parameters:
-      - in: path
+      - in: query
         name: "queryParams"
         required: true
         type: "array"
@@ -132,7 +133,7 @@ paths:
   /customer/{id_customer}/addresses:
     get:
       tags:
-      - "customer"
+      - "Customer"
       summary: "Get all Customer's addresses"
       operationId: "GetCustomerAddresses"
       produces:
