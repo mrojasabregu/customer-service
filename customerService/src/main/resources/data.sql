@@ -18,5 +18,5 @@ CREATE TABLE address(
   street_number INT,
   floor_number INT,
   flat VARCHAR(255),
-  id_customer BINARY(16)
+  id_customer VARCHAR(255)
 );
