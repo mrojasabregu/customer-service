@@ -197,7 +197,7 @@ definitions:
       email: 
         type: "string"
       document_number: 
-        type: "number"
+        type: "string"
       phone: 
         type: "number"
       address:
