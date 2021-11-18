@@ -18,6 +18,10 @@ public class CustomerService implements ICustomerService {
   @Autowired
   private CustomerDao customerDao;
 
+  public Customer findByDocTypeAndDocNumber(String documentNumber, String documentType){
+    return customerRepository.findByDocTypeAndDocNumber(documentNumber, documentType).orElseThrow(()-> new RuntimeException("Client not found"));
+  }
+
   public List<Customer> getCustomers(String name, String lastName, String email, String phone) {
     return customerDao.findByParams(name, lastName, email, phone);
   }
