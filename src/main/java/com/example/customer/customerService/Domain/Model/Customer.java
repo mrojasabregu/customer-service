@@ -9,15 +9,15 @@ import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 @Data
-
-
 @Entity
+@Table(name = "customer")
 public class Customer {
     @Id
     @GeneratedValue(generator = "uuid2")

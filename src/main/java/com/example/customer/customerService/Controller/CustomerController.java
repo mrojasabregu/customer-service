@@ -23,7 +23,7 @@ public class CustomerController {
   public AddressService addressService;
 
   @GetMapping(path = "/")
-  public List<Customer> getCustomer(@RequestParam(name = "name") String name,
+  public List<Customer> getCustomers(@RequestParam(name = "name") String name,
                                     @RequestParam(name = "last_Name") String lastName,
                                     @RequestParam(name = "email") String email,
                                     @RequestParam(name = "phone") String phone) {

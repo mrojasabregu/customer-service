@@ -53,6 +53,8 @@ public class CustomerDao {
 
     return em.createQuery(cq).getResultList();
 
-  }
-}
 
+  }
+
+
+}

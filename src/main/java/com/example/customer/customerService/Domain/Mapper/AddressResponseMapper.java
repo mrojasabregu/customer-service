@@ -21,7 +21,7 @@ public class AddressResponseMapper implements Function<Address, AddressResponse>
         .city(address.getCity())
         .street(address.getStreet())
         .streetNumber(address.getStreetNumber())
-        .floorNumber(address.getFloorNumber())
+        .floor(address.getFloor())
         .flat(address.getFlat())
         .build();
   }
