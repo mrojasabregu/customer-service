@@ -21,10 +21,8 @@ public class ControllerCustomer {
     public ServiceCustomer serviceCustomer;
 
     @GetMapping(path = "/")
-    public List<Customer> getCustomer(@RequestParam(name="name") String name, @RequestParam(nae
-            ="last_Name") String lastName, @RequestParam(name = "email") String email, @RequestParam(name = "phone") long phone){
-        serviceCustomer.getCustomers(name, lastName, email, phone);
+    public List<Customer> getCustomers (@RequestParam(name="name") String name, @RequestParam(name="last_Name") String lastName, @RequestParam(name = "email") String email, @RequestParam(name = "phone") String phone){
+       return serviceCustomer.getCustomers(name, lastName, email, phone);
     }
-
-
 }
+

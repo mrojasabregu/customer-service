@@ -15,9 +15,7 @@ public class ServiceCustomer implements IServiceCustomer {
 @Autowired
  private CustomerDao customerDao;
 
-
-
-  public List<Customer> getCustomers(String name,String lastName,String email,long phone){
+  public List<Customer> getCustomers(String name, String lastName, String email, String phone){
     return customerDao.findByParams(name, lastName, email, phone);
   }
 

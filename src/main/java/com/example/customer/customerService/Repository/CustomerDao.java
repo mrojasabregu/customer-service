@@ -18,7 +18,7 @@ public class CustomerDao {
  EntityManager em;
 
 
- public List<Customer> findByParams(String name, String lastName, String email, Long phone) {
+ public List<Customer> findByParams(String name, String lastName, String email, String phone) {
 
   /*obtenemos una referencia de CriteriaBuilder , que podemos usar para crear diferentes partes de la consulta.*/
   CriteriaBuilder cb = em.getCriteriaBuilder();

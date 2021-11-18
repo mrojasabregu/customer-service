@@ -19,17 +19,14 @@ import javax.persistence.Id;
 
 @Entity
 public class Customer {
-
     @Id
     @GeneratedValue(generator = "uuid2")
     @GenericGenerator(name = "uuid2", strategy = "org.hibernate.id.UUIDGenerator")
-
     private String idCustomer;
     private String name;
     private String lastName;
     private String type;
     private Long documentNumber;
     private String email;
-    private Long phone;
-
+    private String phone;
 }
