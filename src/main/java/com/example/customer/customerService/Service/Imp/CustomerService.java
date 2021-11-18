@@ -1,4 +1,3 @@
-
 package com.example.customer.customerService.Service.Imp;
 
 import com.example.customer.customerService.Domain.Model.Customer;
@@ -17,8 +16,9 @@ public class CustomerService implements ICustomerService {
   private CustomerDao customerDao;
 
 
-  public List<Customer> getCustomers(String name,String lastName,String email,String phone){
+  public List<Customer> getCustomers(String name, String lastName, String email, String phone) {
     return customerDao.findByParams(name, lastName, email, phone);
   }
 
 }
+

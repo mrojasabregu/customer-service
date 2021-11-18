@@ -16,8 +16,6 @@ import java.util.UUID;
 @AllArgsConstructor
 @Builder
 @Data
-
-
 @Entity
 public class Address {
 
