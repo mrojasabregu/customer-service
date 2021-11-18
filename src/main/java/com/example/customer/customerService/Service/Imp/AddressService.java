@@ -16,4 +16,8 @@ public class AddressService {
     return addressRepository.findAddressesByCustomerId(idCustomer);
   }
 
+  public List<Address> getAddressIdByCustomerId(String idCustomer, String idAddress) {
+    return addressRepository.findAddressByCustomerIdAndAddressId(idCustomer, idAddress);
+  }
+
 }

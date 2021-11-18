@@ -11,4 +11,7 @@ import java.util.List;
 public interface IAddressRepository extends CrudRepository<Address, Long> {
   @Query(value = "SELECT * FROM address WHERE id_customer = ?1", nativeQuery = true)
   List<Address> findAddressesByCustomerId(String customerId);
+
+  @Query(value = "SELECT * FROM address WHERE id_customer= ?1 AND id_address= ?2", nativeQuery = true)
+  List<Address> findAddressByCustomerIdAndAddressId(String customerId, String addressId);
 }
