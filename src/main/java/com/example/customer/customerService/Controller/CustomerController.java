@@ -22,11 +22,12 @@ public class CustomerController {
   @Autowired
   public AddressService addressService;
 
-  @GetMapping(path = "/")
-  public List<Customer> getCustomers(@RequestParam(name = "name") String name,
-                                    @RequestParam(name = "last_Name") String lastName,
-                                    @RequestParam(name = "email") String email,
-                                    @RequestParam(name = "phone") String phone) {
+  @GetMapping("/customers")
+  public List<Customer> getCustomers(@RequestParam(name = "name", required = false) String name,
+                                     @RequestParam(name = "last_name", required = false) String lastName,
+                                     @RequestParam(name = "email", required = false) String email,
+                                     @RequestParam(name = "phone", required = false) String phone) {
+    log.info("Customers by query params");
     return customerService.getCustomers(name, lastName, email, phone);
   }
 

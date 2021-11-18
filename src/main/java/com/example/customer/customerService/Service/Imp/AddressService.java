@@ -12,8 +12,8 @@ public class AddressService {
   @Autowired
   private IAddressRepository addressRepository;
 
-  public List<Address> getAdressesByCustomerId(String customerId) {
-    return addressRepository.findAddressesByCustomerId(customerId);
+  public List<Address> getAdressesByCustomerId(String idCustomer) {
+    return addressRepository.findAddressesByCustomerId(idCustomer);
   }
 
 }

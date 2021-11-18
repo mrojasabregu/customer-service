@@ -16,14 +16,17 @@ import javax.persistence.*;
 @Table(name = "address")
 public class Address {
   @Id
-  @GeneratedValue(generator = "uuid2")
-  @GenericGenerator(name = "uuid2", strategy = "org.hibernate.id.UUIDGenerator")
+  @GeneratedValue(generator = "uuid")
+  @GenericGenerator(name = "uuid", strategy = "org.hibernate.id.UUIDGenerator")
+  @Column(name = "id_address")
   private String idAddress;
   private String city;
   private String street;
   private Long streetNumber;
+  @Column(name = "floor_number")
   private Long floor;
   private String flat;
   @ManyToOne
+  @JoinColumn(name = "id_customer")
   private Customer customer;
 }

@@ -2,6 +2,7 @@ package com.example.customer.customerService.Repository;
 
 
 import com.example.customer.customerService.Domain.Model.Customer;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
@@ -15,6 +16,7 @@ import java.util.List;
 @Repository
 public class CustomerDao {
 
+  @Autowired
   EntityManager em;
 
 
@@ -34,18 +36,15 @@ public class CustomerDao {
       predicates.add(cb.equal(customer.get("name"), name));
     }
 
-    if (name != null) {
-
-      predicates.add(cb.equal(customer.get("last_name"), lastName));
+    if (lastName != null) {
+      predicates.add(cb.equal(customer.get("lastName"), lastName));
     }
 
-    if (name != null) {
-
+    if (email != null) {
       predicates.add(cb.equal(customer.get("email"), email));
     }
 
-    if (name != null) {
-
+    if (phone != null) {
       predicates.add(cb.equal(customer.get("phone"), phone));
     }
 
