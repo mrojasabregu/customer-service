@@ -3,20 +3,16 @@ package com.example.customer.customerService.Controller;
 
 import com.example.customer.customerService.Domain.Model.Address;
 import com.example.customer.customerService.Domain.Model.Customer;
-import com.example.customer.customerService.Exceptions.CustomerNotExistException;
 import com.example.customer.customerService.Service.Imp.AddressService;
 import com.example.customer.customerService.Service.Imp.CustomerService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
-
 @RestController
 @RequestMapping(path = "/")
 @Slf4j
 public class CustomerController {
-
   @Autowired
   public CustomerService customerService;
 
@@ -51,7 +47,7 @@ public class CustomerController {
   }
 
   @DeleteMapping(path = "/customer/{idCustomer}")
-  public Customer deleteCustomer(@PathVariable(name = "idCustomer") String idCustomer) throws CustomerNotExistException {
+  public Customer deleteCustomer(@PathVariable(name = "idCustomer") String idCustomer){
     return customerService.deleteCustomer(idCustomer);
   }
 
