@@ -6,6 +6,7 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface IAddressRepository extends CrudRepository<Address, Long> {
@@ -13,5 +14,5 @@ public interface IAddressRepository extends CrudRepository<Address, Long> {
   List<Address> findAddressesByCustomerId(String customerId);
 
   @Query(value = "SELECT * FROM address WHERE id_customer= ?1 AND id_address= ?2", nativeQuery = true)
-  List<Address> findAddressByCustomerIdAndAddressId(String customerId, String addressId);
+  Optional < Address> findAddressByCustomerIdAndAddressId(String customerId, String addressId);
 }
