@@ -3,6 +3,7 @@ package com.example.customer.customerService.Controller;
 
 import com.example.customer.customerService.Domain.Model.Address;
 import com.example.customer.customerService.Domain.Model.Customer;
+import com.example.customer.customerService.Exceptions.CustomerNotExistException;
 import com.example.customer.customerService.Service.Imp.AddressService;
 import com.example.customer.customerService.Service.Imp.CustomerService;
 import lombok.extern.slf4j.Slf4j;
@@ -47,6 +48,11 @@ public class CustomerController {
   public List<Address> getIdAddressesByCustomerId(@PathVariable(name = "idCustomer") String idCustomer, @PathVariable(name = "idAddress") String idAddress) {
     log.info("Customer Addresses requested with idCustomer: " + idCustomer + " and idAddress: " + idAddress);
     return addressService.getAddressIdByCustomerId(idCustomer, idAddress);
+  }
+
+  @DeleteMapping(path = "/customer/{idCustomer}")
+  public Customer deleteCustomer(@PathVariable(name = "idCustomer") String idCustomer) throws CustomerNotExistException {
+    return customerService.deleteCustomer(idCustomer);
   }
 
 }
