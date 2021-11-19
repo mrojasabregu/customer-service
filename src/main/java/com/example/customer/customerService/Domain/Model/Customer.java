@@ -27,7 +27,7 @@ public class Customer {
     @Column(name = "document_type")
     private String type;
     @Column(name = "document_number")
-    private Long documentNumber;
+    private String documentNumber;
     private String email;
     private String phone;
 }
