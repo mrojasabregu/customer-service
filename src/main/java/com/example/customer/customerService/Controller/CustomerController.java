@@ -42,4 +42,11 @@ public class CustomerController {
     log.info("Customer Addresses requested with idCustomer: " + idCustomer);
     return addressService.getAdressesByCustomerId(idCustomer);
   }
+
+  @GetMapping("/customer/{idCustomer}/address/{idAddress}")
+  public List<Address> getIdAddressesByCustomerId(@PathVariable(name = "idCustomer") String idCustomer, @PathVariable(name = "idAddress") String idAddress) {
+    log.info("Customer Addresses requested with idCustomer: " + idCustomer + " and idAddress: " + idAddress);
+    return addressService.getAddressIdByCustomerId(idCustomer, idAddress);
+  }
+
 }
