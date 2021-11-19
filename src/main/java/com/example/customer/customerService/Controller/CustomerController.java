@@ -7,6 +7,7 @@ import com.example.customer.customerService.Domain.Mapper.AddressResponseMapper;
 import com.example.customer.customerService.Domain.Mapper.CustomerResponseMapper;
 import com.example.customer.customerService.Domain.Model.Address;
 import com.example.customer.customerService.Domain.Model.Customer;
+import com.example.customer.customerService.Exceptions.CustomerNotExists;
 import com.example.customer.customerService.Service.Imp.AddressService;
 import com.example.customer.customerService.Service.Imp.CustomerService;
 import lombok.extern.slf4j.Slf4j;
@@ -53,9 +54,9 @@ public class CustomerController {
   }
 
   @GetMapping("/customer/{idCustomer}/address/{idAddress}")
-  public List<AddressResponse> getIdAddressesByCustomerId(@PathVariable(name = "idCustomer") String idCustomer, @PathVariable(name = "idAddress") String idAddress) {
+  public AddressResponse getIdAddressByCustomerId(@PathVariable(name = "idCustomer") String idCustomer, @PathVariable(name = "idAddress") String idAddress) {
     log.info("Customer Addresses requested with idCustomer: " + idCustomer + " and idAddress: " + idAddress);
-    return addressService.getAddressIdByCustomerId(idCustomer, idAddress).stream().map(address -> addressResponseMapper.apply(address)).collect(Collectors.toList());
+    return addressResponseMapper.apply(addressService.getAddressIdByCustomerId(idCustomer, idAddress));
   }
 
   @DeleteMapping(path = "/customer/{idCustomer}")
