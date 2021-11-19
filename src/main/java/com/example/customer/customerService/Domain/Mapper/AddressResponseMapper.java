@@ -16,13 +16,14 @@ public class AddressResponseMapper implements Function<Address, AddressResponse>
 
   @Override
   public AddressResponse apply(Address address) {
-    return (AddressResponse) AddressResponse.builder()
+    return AddressResponse.builder()
         .idAddress(address.getIdAddress())
         .city(address.getCity())
         .street(address.getStreet())
         .streetNumber(address.getStreetNumber())
         .floor(address.getFloor())
         .flat(address.getFlat())
+        .idCustomer(address.getCustomer().getIdCustomer())
         .build();
   }
 }
