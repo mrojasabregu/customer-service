@@ -1,4 +1,4 @@
 package com.example.customer.customerService.Controller.Request;
 
-public class RequestCustomer {
+public class CustomerRequest {
 }

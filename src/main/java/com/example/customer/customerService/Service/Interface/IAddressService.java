@@ -1,4 +1,4 @@
 package com.example.customer.customerService.Service.Interface;
 
-public interface IServiceAddress {
+public interface IAddressService {
 }
