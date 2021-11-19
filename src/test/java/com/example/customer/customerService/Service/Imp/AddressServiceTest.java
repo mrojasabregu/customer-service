@@ -9,12 +9,15 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class AddressServiceTest {
@@ -128,7 +131,7 @@ public class AddressServiceTest {
   public void getAdressesByCustomerIdFailByCustomerNotExists() {
     when(addressRepository.findAddressesByCustomerId(idCustomer)).thenReturn(Collections.EMPTY_LIST);
 
-    assertThrows(RuntimeException.class, () -> addressService.getAdressesByCustomerId(idCustomer));
+    assertEquals(Collections.EMPTY_LIST ,addressService.getAdressesByCustomerId(idCustomer));
 
   }
 
@@ -136,8 +139,7 @@ public class AddressServiceTest {
   public void getAddressIdByCustomerIdSuccess() {
     when(addressRepository.findAddressByCustomerIdAndAddressId(idCustomer, idAddress))
         .thenReturn(addressesFakeResponse.stream()
-            .filter(address -> Objects.equals(address.getCustomer().getIdCustomer(), idCustomer) && Objects.equals(address.getIdAddress(), idAddress))
-            .collect(Collectors.toList()));
+            .filter(address -> Objects.equals(address.getCustomer().getIdCustomer(), idCustomer) && Objects.equals(address.getIdAddress(), idAddress)).findFirst());
 
     assertEquals(address, addressService.getAddressIdByCustomerId(idCustomer, idAddress));
   }
