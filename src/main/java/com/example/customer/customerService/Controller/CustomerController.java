@@ -22,6 +22,12 @@ public class CustomerController {
   @Autowired
   public AddressService addressService;
 
+  @GetMapping("/customer")
+  public Customer getCustomerByDocument(@RequestParam(name = "doc_type") String documentType, @RequestParam(name = "doc_numb")String documentNumber) {
+    log.info("Customer requested with documentType: " + documentType + " and documentNumber: " + documentNumber);
+    return customerService.findByDocTypeAndDocNumber(documentNumber, documentType);
+  }
+
   @GetMapping("/customers")
   public List<Customer> getCustomers(@RequestParam(name = "name", required = false) String name,
                                      @RequestParam(name = "last_name", required = false) String lastName,
