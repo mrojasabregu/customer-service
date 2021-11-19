@@ -56,7 +56,7 @@ public class CustomerController {
   @GetMapping("/customer/{idCustomer}/address/{idAddress}")
   public AddressResponse getIdAddressByCustomerId(@PathVariable(name = "idCustomer") String idCustomer, @PathVariable(name = "idAddress") String idAddress) {
     log.info("Customer Addresses requested with idCustomer: " + idCustomer + " and idAddress: " + idAddress);
-    return addressResponseMapper.apply(addressService.getAddressIdByCustomerId(idCustomer, idAddress).orElseThrow(()-> new CustomerNotExists("Address not found")));
+    return addressResponseMapper.apply(addressService.getAddressIdByCustomerId(idCustomer, idAddress));
   }
 
   @DeleteMapping(path = "/customer/{idCustomer}")
