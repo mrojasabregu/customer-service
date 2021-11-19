@@ -16,7 +16,7 @@ public class CustomerService implements ICustomerService {
   private CustomerDao customerDao;
 
   public Customer findByDocTypeAndDocNumber(String documentNumber, String documentType){
-    return customerRepository.findByDocTypeAndDocNumber(documentNumber, documentType).orElseThrow(()-> new CustomerNotExists("Client not found"));
+    return customerRepository.findByDocTypeAndDocNumber(documentNumber, documentType).orElseThrow(()-> new CustomerNotExists("Customer not found"));
   }
 
   public List<Customer> getCustomers(String name, String lastName, String email, String phone) {
