@@ -2,6 +2,7 @@ package com.example.customer.customerService.Service.Imp;
 
 import com.example.customer.customerService.Domain.Model.Address;
 import com.example.customer.customerService.Domain.Model.Customer;
+import com.example.customer.customerService.Exceptions.CustomerNotExists;
 import com.example.customer.customerService.Repository.IAddressRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -134,18 +135,18 @@ public class AddressServiceTest {
 
   @Test
   public void getAddressIdByCustomerIdSuccess() {
-    when(addressRepository.findAddressByCustomerIdAndAddressId(idCustomer, idAddress))
+    when(addressRepository.findAddressByCustomerIdAndAddressId(idAddress))
         .thenReturn(addressesFakeResponse.stream()
             .filter(address -> Objects.equals(address.getCustomer().getIdCustomer(), idCustomer) && Objects.equals(address.getIdAddress(), idAddress)).findFirst());
 
-    assertEquals(address, addressService.getAddressIdByCustomerId(idCustomer, idAddress));
+    assertEquals(address, addressService.getAddressIdByCustomerId(idAddress));
   }
 
 
   @Test
   public void getAddressIdByCustomerIdFailByCustomerNotExists(){
-    when(addressRepository.findAddressByCustomerIdAndAddressId(idCustomer, idAddress))
+    when(addressRepository.findAddressByCustomerIdAndAddressId(idAddress))
         .thenReturn(Optional.empty());
-    assertThrows(RuntimeException.class, () -> addressService.getAddressIdByCustomerId(idCustomer, idAddress));
+    assertThrows(CustomerNotExists.class, () -> addressService.getAddressIdByCustomerId(idAddress));
   }
 }

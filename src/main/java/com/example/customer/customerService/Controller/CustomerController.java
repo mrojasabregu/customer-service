@@ -40,9 +40,9 @@ public class CustomerController {
 
   @GetMapping("/customers")
   public List<CustomerResponse> getCustomers(@RequestParam(name = "name", required = false) String name,
-                                     @RequestParam(name = "last_name", required = false) String lastName,
-                                     @RequestParam(name = "email", required = false) String email,
-                                     @RequestParam(name = "phone", required = false) String phone) {
+                                             @RequestParam(name = "last_name", required = false) String lastName,
+                                             @RequestParam(name = "email", required = false) String email,
+                                             @RequestParam(name = "phone", required = false) String phone) {
     log.info("Customers by query params");
     return customerService.getCustomers(name, lastName, email, phone).stream().map(c -> customerResponseMapper.apply(c)).collect(Collectors.toList());
   }
@@ -53,14 +53,10 @@ public class CustomerController {
     return addressService.getAdressesByCustomerId(idCustomer).stream().map(address -> addressResponseMapper.apply(address)).collect(Collectors.toList());
   }
 
-  @GetMapping("/customer/{idCustomer}/address/{idAddress}")
-  public AddressResponse getIdAddressByCustomerId(@PathVariable(name = "idCustomer") String idCustomer, @PathVariable(name = "idAddress") String idAddress) {
-    log.info("Customer Addresses requested with idCustomer: " + idCustomer + " and idAddress: " + idAddress);
-    return addressResponseMapper.apply(addressService.getAddressIdByCustomerId(idCustomer, idAddress));
-  }
 
   @DeleteMapping(path = "/customer/{idCustomer}")
   public CustomerResponse deleteCustomer(@PathVariable(name = "idCustomer") String idCustomer){
+    log.info("Customer deleted with idCustomer: " + idCustomer);
     return customerResponseMapper.apply(customerService.deleteCustomer(idCustomer));
   }
 
