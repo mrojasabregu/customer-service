@@ -55,9 +55,9 @@ public class CustomerController {
 
 
   @DeleteMapping(path = "/customer/{idCustomer}")
-  public CustomerResponse deleteCustomer(@PathVariable(name = "idCustomer") String idCustomer){
+  public void deleteCustomer(@PathVariable(name = "idCustomer") String idCustomer){
     log.info("Customer deleted with idCustomer: " + idCustomer);
-    return customerResponseMapper.apply(customerService.deleteCustomer(idCustomer));
+    customerService.deleteCustomer(idCustomer);
   }
 
 }
