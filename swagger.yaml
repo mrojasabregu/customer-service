@@ -8,34 +8,35 @@ info:
     url: "http://www.apache.org/licenses/LICENSE-2.0.html"
 host: "localhost:8080"
 tags:
-- name: "Customer"
-  description: "Customer operations"
-  
+  - name: "Customer"
+    description: "Customer operations"
+  - name: "Address"
+    description: "Address operations"
 
 schemes:
-- "https"
-- "http"
+  - "https"
+  - "http"
 
 paths:
   /customer:
     get:
       tags:
-      - "Customer"
+        - "Customer"
       summary: "get a Customer by document"
       operationId: "GetCustomerByDocument"
       produces:
         - "application/json"
       parameters:
-      - name: "document_type"
-        in: "query"
-        description: "document type"
-        required: true
-        type: "string"
-      - name: "document_number"
-        in: "query"
-        description: "document number"
-        required: true
-        type: "string"
+        - name: "document_type"
+          in: "query"
+          description: "document type"
+          required: true
+          type: "string"
+        - name: "document_number"
+          in: "query"
+          description: "document number"
+          required: true
+          type: "string"
       responses:
         200:
           description: "OK"
@@ -53,28 +54,28 @@ paths:
           description: "Internal Server Error"
           schema:
             $ref: "#/definitions/ErrorInternalServerResponse"
-  
+
   /customers:
     get:
       tags:
-      - "Customer"
+        - "Customer"
       summary: "get Customers by name"
       operationId: "GetCustomersByDocument"
       produces:
         - "application/json"
       parameters:
-      - in: query
-        name: "queryParams"
-        required: true
-        type: "array"
-        items:
+        - in: query
+          name: "queryParams"
+          required: true
+          type: "array"
+          items:
             type: string
             enum:
               - name
               - last_name
               - email
               - phone
-        
+
       responses:
         200:
           description: "OK"
@@ -93,25 +94,20 @@ paths:
           schema:
             $ref: "#/definitions/ErrorInternalServerResponse"
 
-  /customer/{id_customer}/address/{id_address}:
+  /address/{id_address}:
     get:
       tags:
-      - "Customer"
-      summary: "Get Customer address by id_address"
+        - "Address"
+      summary: "Get Address by id_address"
       operationId: "GetAddressById"
       produces:
         - "application/json"
       parameters:
-      - name: "id_customer"
-        in: "path"
-        description: "Customer id"
-        required: true
-        type: "string"
-      - name: "id_address"
-        in: "path"
-        description: "Address id"
-        required: true
-        type: "string"
+        - name: "id_address"
+          in: "path"
+          description: "Address id"
+          required: true
+          type: "string"
       responses:
         200:
           description: "OK"
@@ -129,21 +125,21 @@ paths:
           description: "Internal Server Error"
           schema:
             $ref: "#/definitions/ErrorInternalServerResponse"
-        
+
   /customer/{id_customer}/addresses:
     get:
       tags:
-      - "Customer"
+        - "Customer"
       summary: "Get all Customer's addresses"
       operationId: "GetCustomerAddresses"
       produces:
         - "application/json"
       parameters:
-      - name: "id_customer"
-        in: "path"
-        description: "Customer id"
-        required: true
-        type: "string"
+        - name: "id_customer"
+          in: "path"
+          description: "Customer id"
+          required: true
+          type: "string"
       responses:
         200:
           description: "OK"
@@ -161,7 +157,7 @@ paths:
           description: "Internal Server Error"
           schema:
             $ref: "#/definitions/ErrorInternalServerResponse"
-      
+
 
 definitions:
 
@@ -169,36 +165,36 @@ definitions:
     type: "array"
     items:
       $ref: "#/definitions/Customer"
-      
+
   ArrayOfAddress:
     type: "array"
     items:
       $ref: "#/definitions/Address"
-  
+
   Customer:
     type: "object"
     required:
-    - "name"
-    - "last_name"
-    - "document_type"
-    - "document_number"
-    - "email"
-    - "phone"
-    - "address"
+      - "name"
+      - "last_name"
+      - "document_type"
+      - "document_number"
+      - "email"
+      - "phone"
+      - "address"
     properties:
-      id_customer:
+      idCustomer:
         type: "string"
-      name: 
+      name:
         type: "string"
-      last_name:
+      lastName:
         type: "string"
-      document_type:
+      documentType:
         type: "string"
-      email: 
+      email:
         type: "string"
-      document_number: 
+      documentNumber:
         type: "string"
-      phone: 
+      phone:
         type: "number"
       address:
         $ref: "#/definitions/ArrayOfAddress"
@@ -206,25 +202,25 @@ definitions:
   Address:
     type: "object"
     required:
-    - "city"
-    - "street"
-    - "street_number"
-    - "floor"
-    - "flat"
+      - "city"
+      - "street"
+      - "street_number"
+      - "floor"
+      - "flat"
     properties:
-      id_address:
+      idAddress:
         type: "string"
-      city: 
+      city:
         type: "string"
-      street: 
+      street:
         type: "string"
-      street_number: 
+      streetNumber:
         type: "number"
-      floor: 
+      floor:
         type: "number"
-      flat: 
+      flat:
         type: "string"
-      
+
   ErrorNotFoundResponse:
     type: "object"
     properties:
@@ -237,7 +233,7 @@ definitions:
       result:
         type: "string"
         example: "GENERIC_NOT_FOUND"
-  
+
   ErrorBadRequestResponse:
     type: "object"
     properties:
@@ -250,7 +246,7 @@ definitions:
       result:
         type: "string"
         example: "GENERIC_NOT_FOUND"
-  
+
   ErrorInternalServerResponse:
     type: "object"
     properties:
