@@ -1,6 +1,7 @@
 package com.example.customer.customerService.Service.Imp;
 
 import com.example.customer.customerService.Domain.Model.Customer;
+import com.example.customer.customerService.Exceptions.CustomerNotExists;
 import com.example.customer.customerService.Repository.CustomerDao;
 import com.example.customer.customerService.Repository.ICustomerRepository;
 import org.junit.Ignore;
@@ -49,7 +50,7 @@ public class CustomerServiceTest {
   @Test
   public void findByDocTypeAndDocNumberFailByCustomerNotExists() {
     when(customerRepository.findByDocTypeAndDocNumber(fakeCustomer.getDocumentNumber(), fakeCustomer.getType())).thenReturn(Optional.empty());
-    assertThrows(RuntimeException.class, () -> customerService.findByDocTypeAndDocNumber(fakeCustomer.getDocumentNumber(), fakeCustomer.getType()));
+    assertThrows(CustomerNotExists.class, () -> customerService.findByDocTypeAndDocNumber(fakeCustomer.getDocumentNumber(), fakeCustomer.getType()));
   }
 
   @Test

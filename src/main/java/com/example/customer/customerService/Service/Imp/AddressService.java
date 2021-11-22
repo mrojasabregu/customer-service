@@ -18,8 +18,8 @@ public class AddressService {
     return addressRepository.findAddressesByCustomerId(idCustomer);
   }
 
-  public Address getAddressIdByCustomerId(String idCustomer, String idAddress) {
-    return addressRepository.findAddressByCustomerIdAndAddressId(idCustomer, idAddress).orElseThrow(() -> new CustomerNotExists("Address not found"));
+  public Address getAddressIdByCustomerId(String idAddress) {
+    return addressRepository.findAddressByCustomerIdAndAddressId(idAddress).orElseThrow(() -> new CustomerNotExists("Address not found"));
   }
 
 }
