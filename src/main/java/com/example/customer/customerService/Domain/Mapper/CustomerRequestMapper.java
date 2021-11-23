@@ -5,7 +5,6 @@ import com.example.customer.customerService.Domain.Model.Customer;
 import org.springframework.stereotype.Component;
 
 import java.util.function.Function;
-
 @Component
 public class CustomerRequestMapper implements Function<CustomerRequest, Customer> {
 

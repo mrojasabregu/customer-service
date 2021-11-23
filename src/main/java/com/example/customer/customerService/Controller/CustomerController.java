@@ -1,9 +1,8 @@
 package com.example.customer.customerService.Controller;
-
-
 import com.example.customer.customerService.Controller.Request.CustomerRequest;
 import com.example.customer.customerService.Controller.Response.AddressResponse;
 import com.example.customer.customerService.Controller.Response.CustomerResponse;
+import com.example.customer.customerService.Domain.Mapper.AddressRequestMapper;
 import com.example.customer.customerService.Domain.Mapper.AddressResponseMapper;
 import com.example.customer.customerService.Domain.Mapper.CustomerRequestMapper;
 import com.example.customer.customerService.Domain.Mapper.CustomerResponseMapper;
@@ -64,13 +63,10 @@ public class CustomerController {
     log.info("Customer deleted with idCustomer: " + idCustomer);
     customerService.deleteCustomer(idCustomer);
   }
-
   @PutMapping(path = "/customer/{idCustomer}")
   public CustomerResponse updateCustomer(@PathVariable(name = "idCustomer") String idCustomer, @RequestBody CustomerRequest request) {
     Customer customer = customerRequestMapper.apply(request);
     log.info("Customer updated with idCustomer: + idCustomer");
     return customerResponseMapper.apply(customerService.updateCustomer(customer, idCustomer));
   }
-
-
 }

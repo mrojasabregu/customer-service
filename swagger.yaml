@@ -13,6 +13,9 @@ tags:
   - name: "Address"
     description: "Address operations"
 
+
+
+
 schemes:
   - "https"
   - "http"
@@ -126,6 +129,35 @@ paths:
           schema:
             $ref: "#/definitions/ErrorInternalServerResponse"
 
+    delete:
+      tags:
+        - "Address"
+      summary: "Delete Address by id_address"
+      operationId: "DeleteAddressById"
+      produces:
+        - "application/json"
+      parameters:
+        - name: "id_address"
+          in: "path"
+          description: "Address id"
+          required: true
+          type: "string"
+      responses:
+        200:
+          description: "OK"
+        400:
+          description: "Bad Request"
+          schema:
+            $ref: "#/definitions/ErrorBadRequestResponse"
+        404:
+          description: "Not Found"
+          schema:
+            $ref: "#/definitions/ErrorNotFoundResponse"
+        500:
+          description: "Internal Server Error"
+          schema:
+            $ref: "#/definitions/ErrorInternalServerResponse"
+
   /customer/{id_customer}/addresses:
     get:
       tags:
@@ -158,6 +190,35 @@ paths:
           schema:
             $ref: "#/definitions/ErrorInternalServerResponse"
 
+  /customer/{id_customer}:
+    delete:
+      tags:
+        - "Customer"
+      summary: "Delete customer by id_customer"
+      operationId: "DeleteCustomerById"
+      produces:
+        - "application/json"
+      parameters:
+        - name: "id_customer"
+          in: "path"
+          description: "Customer id"
+          required: true
+          type: "string"
+      responses:
+        200:
+          description: "OK"
+        400:
+          description: "Bad Request"
+          schema:
+            $ref: "#/definitions/ErrorBadRequestResponse"
+        404:
+          description: "Not Found"
+          schema:
+            $ref: "#/definitions/ErrorNotFoundResponse"
+        500:
+          description: "Internal Server Error"
+          schema:
+            $ref: "#/definitions/ErrorInternalServerResponse"
 
 definitions:
 

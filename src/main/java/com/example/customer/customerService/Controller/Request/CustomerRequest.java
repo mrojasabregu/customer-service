@@ -1,12 +1,15 @@
 package com.example.customer.customerService.Controller.Request;
 
+import com.example.customer.customerService.Domain.Model.Address;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.validation.constraints.*;
 import java.util.List;
-
 @Builder
 @Data
 public class CustomerRequest {
