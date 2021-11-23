@@ -67,22 +67,4 @@ public class CustomerServiceTest {
     assertEquals(Arrays.asList(fakeCustomer), customerService.getCustomers(fakeCustomer.getName(), fakeCustomer.getLastName(), fakeCustomer.getEmail(), null));
     assertEquals(Arrays.asList(fakeCustomer), customerService.getCustomers(fakeCustomer.getName(), fakeCustomer.getLastName(), fakeCustomer.getEmail(), fakeCustomer.getPhone()));
   }
-
-  @Test
-  public void deleteCustomerSuccess() {
-    when(customerRepository.findById(fakeCustomer.getIdCustomer())).thenReturn(Optional.of(fakeCustomer));
-
-    customerService.deleteCustomer(fakeCustomer.getIdCustomer());
-
-    verify(addressRepository, times(1)).deleteByIdCustomer(fakeCustomer.getIdCustomer());
-    verify(customerRepository, times(1)).deleteById(fakeCustomer.getIdCustomer());
-  }
-
-  @Test
-  public void deleteCustomerFailByNotExistsCustomer() {
-    when(customerRepository.findById(fakeCustomer.getIdCustomer())).thenReturn(Optional.empty());
-    assertThrows(CustomerNotExists.class,() -> customerService.deleteCustomer(fakeCustomer.getIdCustomer()));
-    verify(addressRepository, times(0)).deleteByIdCustomer(fakeCustomer.getIdCustomer());
-    verify(customerRepository, times(0)).deleteById(fakeCustomer.getIdCustomer());
-  }
 }

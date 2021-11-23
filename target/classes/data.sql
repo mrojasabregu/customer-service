@@ -75,10 +75,10 @@ insert into customer (id_customer, name, last_name, document_type, document_numb
 
 insert into address (id_address, city, street, street_number, floor_number, flat, id_customer) values ('327fd47b-b3a2-44e5-92b0-0b29f6820fd5', 'Ad Dujayl', 'Kenwood', '92', 6, 'b', '675a990d-6ed6-425c-8afe-6fd7a507b77a');
 insert into address (id_address, city, street, street_number, floor_number, flat, id_customer) values ('c5af427e-b0e8-41d1-a015-7945bd733e21', 'Saipan', 'Springview', '28073', 3, 'f', '5cb7271b-bbdf-4ee2-850b-d7a41211c5ba');
-insert into address (id_address, city, street, street_number, floor_number, flat, id_customer) values ('a48d3c2f-6344-4c1f-ac62-c81fe81eab4e', 'General Ramírez', 'Goodland', '15', 4, 'e', 'a9ca36a1-f246-4af4-af52-a5d1f963e7dd');
+insert into address (id_address, city, street, street_number, floor_number, flat, id_customer) values ('a48d3c2f-6344-4c1f-ac62-c81fe81eab4e', 'General Ramírez', 'Goodland', '15', 4, 'e', '0d473cca-18a9-4f32-b39f-7943d2ee8ec7');
 insert into address (id_address, city, street, street_number, floor_number, flat, id_customer) values ('d5556669-1620-408b-8e1a-28ea3e8a4960', 'Fuxing', 'Bay', '66', 5, 'a', '011c3022-4515-4971-9fc6-778971a28423');
 insert into address (id_address, city, street, street_number, floor_number, flat, id_customer) values ('de47ec52-1ff1-4f1e-95d0-68e2a38aa413', 'Larache', 'High Crossing', '12', 12, 'f', '0477037a-ebdb-48d3-a733-f7ac16eba0bf');
-insert into address (id_address, city, street, street_number, floor_number, flat, id_customer) values ('61bb59b2-1dd1-4c9d-9d48-0d2e1a6fd488', 'Zhangbang', 'Chinook', '9', 11, 'd', '97cdc1e3-9e1d-4988-a2d3-9d7d527f35f5');
+insert into address (id_address, city, street, street_number, floor_number, flat, id_customer) values ('61bb59b2-1dd1-4c9d-9d48-0d2e1a6fd488', 'Zhangbang', 'Chinook', '9', 11, 'd', '0d473cca-18a9-4f32-b39f-7943d2ee8ec7');
 insert into address (id_address, city, street, street_number, floor_number, flat, id_customer) values ('eb10482f-3d65-44c6-a0a5-8c4bbf5be27a', 'Sandaotong', 'Summerview', '21575', 4, 'b', 'b65b883e-a1bc-4282-88b2-c59d9c83b1b4');
 insert into address (id_address, city, street, street_number, floor_number, flat, id_customer) values ('dbdd24ff-2e13-4a13-af12-b774363eb002', 'Guandiping', 'Prairieview', '3', 11, 'd', 'a4bf6b4a-f115-47ac-9b60-ab08a3fc9ea6');
 insert into address (id_address, city, street, street_number, floor_number, flat, id_customer) values ('7a8c3a2b-92de-4dcf-aa66-d10e0436b5a3', 'Qingzhou', 'Sherman', '977', 1, 'c', '6a1a884e-3928-4d56-bd26-f8e11b1a43db');
