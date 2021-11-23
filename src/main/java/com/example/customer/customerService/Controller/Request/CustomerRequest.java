@@ -5,6 +5,8 @@ import lombok.Data;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.validation.constraints.*;
+import java.util.List;
+
 @Builder
 @Data
 public class CustomerRequest {
@@ -30,5 +32,5 @@ public class CustomerRequest {
     @NotBlank(message = "The phone field cannot be null nor blank")
     @Size(min = 10, max = 17)
     private String phone;
-
+    private List<AddressRequest> Address;
 }
