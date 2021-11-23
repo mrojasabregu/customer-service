@@ -3,8 +3,8 @@ package com.example.customer.customerService.Service.Imp;
 import com.example.customer.customerService.Domain.Model.Customer;
 import com.example.customer.customerService.Exceptions.CustomerNotExists;
 import com.example.customer.customerService.Repository.CustomerDao;
+import com.example.customer.customerService.Repository.IAddressRepository;
 import com.example.customer.customerService.Repository.ICustomerRepository;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -16,7 +16,7 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
 public class CustomerServiceTest {
@@ -26,6 +26,9 @@ public class CustomerServiceTest {
 
   @Mock
   public ICustomerRepository customerRepository;
+
+  @Mock
+  public IAddressRepository addressRepository;
 
   @Mock
   public CustomerDao customerDao;
@@ -65,15 +68,21 @@ public class CustomerServiceTest {
     assertEquals(Arrays.asList(fakeCustomer), customerService.getCustomers(fakeCustomer.getName(), fakeCustomer.getLastName(), fakeCustomer.getEmail(), fakeCustomer.getPhone()));
   }
 
-  @Ignore
   @Test
-  public void deleteCustomer() {
+  public void deleteCustomerSuccess() {
+    when(customerRepository.findById(fakeCustomer.getIdCustomer())).thenReturn(Optional.of(fakeCustomer));
 
+    customerService.deleteCustomer(fakeCustomer.getIdCustomer());
+
+    verify(addressRepository, times(1)).deleteByIdCustomer(fakeCustomer.getIdCustomer());
+    verify(customerRepository, times(1)).deleteById(fakeCustomer.getIdCustomer());
   }
 
-  @Ignore
   @Test
   public void deleteCustomerFailByNotExistsCustomer() {
-
+    when(customerRepository.findById(fakeCustomer.getIdCustomer())).thenReturn(Optional.empty());
+    assertThrows(CustomerNotExists.class,() -> customerService.deleteCustomer(fakeCustomer.getIdCustomer()));
+    verify(addressRepository, times(0)).deleteByIdCustomer(fakeCustomer.getIdCustomer());
+    verify(customerRepository, times(0)).deleteById(fakeCustomer.getIdCustomer());
   }
 }
