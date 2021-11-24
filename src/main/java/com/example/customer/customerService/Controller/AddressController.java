@@ -4,6 +4,7 @@ import com.example.customer.customerService.Controller.Request.AddressRequest;
 import com.example.customer.customerService.Controller.Response.AddressResponse;
 import com.example.customer.customerService.Domain.Mapper.AddressRequestMapper;
 import com.example.customer.customerService.Domain.Mapper.AddressResponseMapper;
+import com.example.customer.customerService.Domain.Model.Address;
 import com.example.customer.customerService.Service.Imp.AddressService;
 import com.example.customer.customerService.Service.Imp.CustomerService;
 import lombok.extern.slf4j.Slf4j;
@@ -46,5 +47,15 @@ public class AddressController {
     customerService.getCustomerById(addressRequest.getIdCustomer());
     return addressResponseMapper.apply(addressService.createAddress(addressRequestMapper.apply(addressRequest)));
   }
+
+
+  @PutMapping(path = "/{idAddress}")
+  public AddressResponse updateAddress(@PathVariable(name = "idAddress") String idAddress, @RequestBody AddressRequest request){
+    Address address= addressRequestMapper.apply(request);
+    log.info("Address updated with idAddress: + idAddress");
+    return  addressResponseMapper.apply(addressService.updateAddress(address,idAddress));
+
+  }
+
 
 }
