@@ -1,5 +1,7 @@
 package com.example.customer.customerService.Service.Imp;
 
+import com.example.customer.customerService.Controller.Request.AddressRequest;
+import com.example.customer.customerService.Domain.Mapper.AddressRequestMapper;
 import com.example.customer.customerService.Domain.Model.Address;
 import com.example.customer.customerService.Exceptions.CustomerNotExists;
 import com.example.customer.customerService.Repository.IAddressRepository;
@@ -8,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.StreamSupport;
 
 @Slf4j
 @Service
@@ -25,8 +28,8 @@ public class AddressService {
   }
 
 
-  public void createAddresses(List<Address> addresses) {
-    addressRepository.saveAll(addresses);
+  public List<Address> createAddresses(List<Address> addresses) {
+    return StreamSupport.stream(addressRepository.saveAll(addresses).spliterator(), false).collect(java.util.stream.Collectors.toList());
   }
 
   public void deleteAddressById(String addressId) {
