@@ -35,4 +35,9 @@ public class AddressService {
     addressRepository.findById(addressId).orElseThrow(() -> new CustomerNotExists("Address not found"));
     addressRepository.deleteAddressById(addressId);
   }
+
+  public Address createAddress(Address address) {
+    address.setIdAddress(null);
+    return addressRepository.save(address);
+  }
 }

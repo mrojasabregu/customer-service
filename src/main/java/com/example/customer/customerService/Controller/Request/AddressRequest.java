@@ -5,10 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Positive;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -18,14 +15,14 @@ public class AddressRequest {
   private String idAddress;
   @Size(min = 2, max = 30)
   private String city;
-  @NotEmpty
+  @NotEmpty(message = "The Street filed cannot be empty")
   private String street;
   @Positive(message = "The idCustomer field must be positive")
   private Long streetNumber;
-  @NotNull
+  @NotNull(message = "The floor field must not be null")
   private Long floor;
-  @NotNull
+  @NotNull(message = "The flat field must not be null")
   private String flat;
-  @Positive(message = "The idCustomer field must be positive")
+  @NotBlank(message = "The idCustomer field cannot be blank nor null")
   private String idCustomer;
 }
