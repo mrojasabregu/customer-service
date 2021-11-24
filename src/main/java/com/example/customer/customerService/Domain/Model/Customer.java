@@ -9,7 +9,6 @@ import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
 import javax.transaction.Transactional;
 
-
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder

@@ -5,6 +5,8 @@ import com.example.customer.customerService.Exceptions.CustomerNotExists;
 import com.example.customer.customerService.Repository.CustomerDao;
 import com.example.customer.customerService.Repository.ICustomerRepository;
 import org.junit.Ignore;
+import com.example.customer.customerService.Repository.IAddressRepository;
+import com.example.customer.customerService.Repository.ICustomerRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -16,7 +18,7 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
 public class CustomerServiceTest {
@@ -26,6 +28,9 @@ public class CustomerServiceTest {
 
   @Mock
   public ICustomerRepository customerRepository;
+
+  @Mock
+  public IAddressRepository addressRepository;
 
   @Mock
   public CustomerDao customerDao;
@@ -63,17 +68,5 @@ public class CustomerServiceTest {
     assertEquals(Arrays.asList(fakeCustomer), customerService.getCustomers(fakeCustomer.getName(), fakeCustomer.getLastName(), null, null));
     assertEquals(Arrays.asList(fakeCustomer), customerService.getCustomers(fakeCustomer.getName(), fakeCustomer.getLastName(), fakeCustomer.getEmail(), null));
     assertEquals(Arrays.asList(fakeCustomer), customerService.getCustomers(fakeCustomer.getName(), fakeCustomer.getLastName(), fakeCustomer.getEmail(), fakeCustomer.getPhone()));
-  }
-
-  @Ignore
-  @Test
-  public void deleteCustomer() {
-
-  }
-
-  @Ignore
-  @Test
-  public void deleteCustomerFailByNotExistsCustomer() {
-
   }
 }
