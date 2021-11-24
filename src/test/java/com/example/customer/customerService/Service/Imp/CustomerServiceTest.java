@@ -3,6 +3,8 @@ package com.example.customer.customerService.Service.Imp;
 import com.example.customer.customerService.Domain.Model.Customer;
 import com.example.customer.customerService.Exceptions.CustomerNotExists;
 import com.example.customer.customerService.Repository.CustomerDao;
+import com.example.customer.customerService.Repository.ICustomerRepository;
+import org.junit.Ignore;
 import com.example.customer.customerService.Repository.IAddressRepository;
 import com.example.customer.customerService.Repository.ICustomerRepository;
 import org.junit.Test;
