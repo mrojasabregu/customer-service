@@ -1,7 +1,4 @@
 package com.example.customer.customerService.Controller;
-
-
-import com.example.customer.customerService.Controller.Request.AddressRequest;
 import com.example.customer.customerService.Controller.Request.CustomerRequest;
 import com.example.customer.customerService.Controller.Response.AddressResponse;
 import com.example.customer.customerService.Controller.Response.CustomerResponse;
@@ -36,8 +33,11 @@ public class CustomerController {
   @Autowired
   public CustomerResponseMapper customerResponseMapper;
 
+  @Autowired
+  public CustomerRequestMapper customerRequestMapper;
+
   @GetMapping("/customer")
-  public CustomerResponse getCustomerByDocument(@RequestParam(name = "doc_type") String documentType, @RequestParam(name = "doc_numb")String documentNumber) {
+  public CustomerResponse getCustomerByDocument(@RequestParam(name = "doc_type") String documentType, @RequestParam(name = "doc_numb") String documentNumber) {
     log.info("Customer requested with documentType: " + documentType + " and documentNumber: " + documentNumber);
     return customerResponseMapper.apply(customerService.findByDocTypeAndDocNumber(documentNumber, documentType));
   }
@@ -59,10 +59,14 @@ public class CustomerController {
 
 
   @DeleteMapping(path = "/customer/{idCustomer}")
-  public void deleteCustomer(@PathVariable(name = "idCustomer") String idCustomer){
+  public void deleteCustomer(@PathVariable(name = "idCustomer") String idCustomer) {
     log.info("Customer deleted with idCustomer: " + idCustomer);
     customerService.deleteCustomer(idCustomer);
   }
-
-
+  @PutMapping(path = "/customer/{idCustomer}")
+  public CustomerResponse updateCustomer(@PathVariable(name = "idCustomer") String idCustomer, @RequestBody CustomerRequest request) {
+    Customer customer = customerRequestMapper.apply(request);
+    log.info("Customer updated with idCustomer: + idCustomer");
+    return customerResponseMapper.apply(customerService.updateCustomer(customer, idCustomer));
+  }
 }

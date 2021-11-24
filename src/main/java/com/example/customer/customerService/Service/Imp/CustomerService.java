@@ -1,6 +1,4 @@
 package com.example.customer.customerService.Service.Imp;
-
-import com.example.customer.customerService.Controller.Request.CustomerRequest;
 import com.example.customer.customerService.Domain.Model.Customer;
 import com.example.customer.customerService.Exceptions.CustomerNotExists;
 import com.example.customer.customerService.Repository.CustomerDao;
@@ -10,6 +8,7 @@ import com.example.customer.customerService.Service.Interface.ICustomerService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
 @Slf4j
 @Service
@@ -36,6 +35,16 @@ public class CustomerService implements ICustomerService {
     addressRepository.deleteByIdCustomer(customerId);
     customerRepository.deleteById(customerId);
   }
+
+
+   public Customer updateCustomer( Customer customer, String idCustomer){
+     customerRepository.findById(idCustomer).orElseThrow(()->new CustomerNotExists("Customer not found"));
+     customerRepository.save(customer);
+     return customer;
+
+   }
+
+
 
 }
 
