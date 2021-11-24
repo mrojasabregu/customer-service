@@ -3,16 +3,17 @@ package com.example.customer.customerService.Service.Imp;
 import com.example.customer.customerService.Domain.Model.Address;
 import com.example.customer.customerService.Exceptions.CustomerNotExists;
 import com.example.customer.customerService.Repository.IAddressRepository;
+import com.example.customer.customerService.Service.Interface.IAddressService;
+import com.example.customer.customerService.Service.Interface.ICustomerService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.StreamSupport;
-
 @Slf4j
 @Service
-public class AddressService {
+public class AddressService implements IAddressService {
 
   @Autowired
   private IAddressRepository addressRepository;
