@@ -1,4 +1,6 @@
 package com.example.customer.customerService.Controller;
+
+import com.example.customer.customerService.Controller.Request.AddressRequest;
 import com.example.customer.customerService.Controller.Request.CustomerRequest;
 import com.example.customer.customerService.Controller.Response.AddressResponse;
 import com.example.customer.customerService.Controller.Response.CustomerResponse;
@@ -6,14 +8,13 @@ import com.example.customer.customerService.Domain.Mapper.AddressRequestMapper;
 import com.example.customer.customerService.Domain.Mapper.AddressResponseMapper;
 import com.example.customer.customerService.Domain.Mapper.CustomerRequestMapper;
 import com.example.customer.customerService.Domain.Mapper.CustomerResponseMapper;
-import com.example.customer.customerService.Domain.Model.Address;
 import com.example.customer.customerService.Domain.Model.Customer;
-import com.example.customer.customerService.Exceptions.CustomerNotExists;
 import com.example.customer.customerService.Service.Imp.AddressService;
 import com.example.customer.customerService.Service.Imp.CustomerService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -35,6 +36,11 @@ public class CustomerController {
 
   @Autowired
   public CustomerRequestMapper customerRequestMapper;
+
+
+  @Autowired
+  public AddressRequestMapper addressRequestMapper;
+
 
   @GetMapping("/customer")
   public CustomerResponse getCustomerByDocument(@RequestParam(name = "doc_type") String documentType, @RequestParam(name = "doc_numb") String documentNumber) {
@@ -63,6 +69,18 @@ public class CustomerController {
     log.info("Customer deleted with idCustomer: " + idCustomer);
     customerService.deleteCustomer(idCustomer);
   }
+
+  @PostMapping(path = "/customer")
+  public CustomerResponse createCustomer(@RequestBody CustomerRequest customerRequest) {
+    log.info("Customer create request");
+    Customer customer = customerRequestMapper.apply(customerRequest);
+    Customer newCustomer = customerService.createCustomer(customer);
+    List<AddressRequest> addressesRequest = customerRequest.getAddresses();
+    addressesRequest.stream().forEach(request -> request.setIdCustomer(customer.getIdCustomer()));
+    addressService.createAddresses(addressesRequest.stream().map(addressRequestMapper::apply).collect(Collectors.toList()));
+    return customerResponseMapper.apply(newCustomer);
+  }
+
   @PutMapping(path = "/customer/{idCustomer}")
   public CustomerResponse updateCustomer(@PathVariable(name = "idCustomer") String idCustomer, @RequestBody CustomerRequest request) {
     Customer customer = customerRequestMapper.apply(request);

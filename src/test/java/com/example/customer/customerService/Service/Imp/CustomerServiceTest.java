@@ -59,7 +59,7 @@ public class CustomerServiceTest {
   }
 
   @Test
-  public void getCustomers() {
+  public void getCustomersSuccess() {
     when(customerDao.findByParams(fakeCustomer.getName(), null, null, null)).thenReturn(Arrays.asList(fakeCustomer));
     when(customerDao.findByParams(fakeCustomer.getName(), fakeCustomer.getLastName(), null, null)).thenReturn(Arrays.asList(fakeCustomer));
     when(customerDao.findByParams(fakeCustomer.getName(), fakeCustomer.getLastName(), fakeCustomer.getEmail(), null)).thenReturn(Arrays.asList(fakeCustomer));
@@ -69,6 +69,14 @@ public class CustomerServiceTest {
     assertEquals(Arrays.asList(fakeCustomer), customerService.getCustomers(fakeCustomer.getName(), fakeCustomer.getLastName(), fakeCustomer.getEmail(), null));
     assertEquals(Arrays.asList(fakeCustomer), customerService.getCustomers(fakeCustomer.getName(), fakeCustomer.getLastName(), fakeCustomer.getEmail(), fakeCustomer.getPhone()));
   }
+
+  @Test
+  public void createCustomerSuccess(){
+    when(customerRepository.save(fakeCustomer)).thenReturn(fakeCustomer);
+    assertEquals(fakeCustomer, customerService.createCustomer(fakeCustomer));
+    verify(customerRepository, times(1)).save(fakeCustomer);
+  }
+
   @Test
   public void deleteCustomerSuccess() {
     when(customerRepository.findById(fakeCustomer.getIdCustomer())).thenReturn(Optional.of(fakeCustomer));
@@ -86,5 +94,6 @@ public class CustomerServiceTest {
     verify(addressRepository, times(0)).deleteByIdCustomer(fakeCustomer.getIdCustomer());
     verify(customerRepository, times(0)).deleteById(fakeCustomer.getIdCustomer());
   }
+
 
 }

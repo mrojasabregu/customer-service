@@ -4,6 +4,7 @@ import com.example.customer.customerService.Domain.Model.Address;
 import com.example.customer.customerService.Domain.Model.Customer;
 import com.example.customer.customerService.Exceptions.CustomerNotExists;
 import com.example.customer.customerService.Repository.IAddressRepository;
+import com.example.customer.customerService.Repository.ICustomerRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -13,8 +14,8 @@ import org.mockito.junit.MockitoJUnitRunner;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
+
 import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -26,6 +27,9 @@ public class AddressServiceTest {
 
   @Mock
   public IAddressRepository addressRepository;
+
+  @Mock
+  public ICustomerRepository customerRepository;
 
 
   List<Address> addressesFakeResponse = Arrays.asList(
@@ -149,6 +153,13 @@ public class AddressServiceTest {
         .thenReturn(Optional.empty());
     assertThrows(CustomerNotExists.class, () -> addressService.getAddressIdByCustomerId(idAddress));
   }
+
+  @Test
+  public void createAddressesSuccess() {
+    when(addressRepository.saveAll(addressesFakeResponse)).thenReturn(addressesFakeResponse);
+    assertEquals(addressesFakeResponse, addressService.createAddresses(addressesFakeResponse));
+    verify(addressRepository, times(1)).saveAll(addressesFakeResponse);
+  
   @Test
   public void deleteAddressSuccess() {
     when(addressRepository.findById(address.getIdAddress())).thenReturn(Optional.of(address));
@@ -164,5 +175,6 @@ public class AddressServiceTest {
     when(addressRepository.findById(address.getIdAddress())).thenReturn(Optional.empty());
     assertThrows(CustomerNotExists.class,() -> addressService.deleteAddressById(address.getIdAddress()));
     verify(addressRepository, times(0)).deleteAddressById(address.getIdAddress());
+
   }
 }
