@@ -13,7 +13,6 @@ import org.mockito.junit.MockitoJUnitRunner;
 
 import java.util.*;
 import java.util.stream.Collectors;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 import static org.mockito.Mockito.*;
@@ -133,7 +132,7 @@ public class AddressServiceTest {
   public void getAdressesByCustomerIdFailByCustomerNotExists() {
     when(addressRepository.findAddressesByCustomerId(idCustomer)).thenReturn(Collections.EMPTY_LIST);
 
-    assertEquals(Collections.EMPTY_LIST ,addressService.getAdressesByCustomerId(idCustomer));
+    assertEquals(Collections.EMPTY_LIST, addressService.getAdressesByCustomerId(idCustomer));
 
   }
 
@@ -146,9 +145,8 @@ public class AddressServiceTest {
     assertEquals(address, addressService.getAddressIdByCustomerId(idAddress));
   }
 
-
   @Test
-  public void getAddressIdByCustomerIdFailByCustomerNotExists(){
+  public void getAddressIdByCustomerIdFailByCustomerNotExists() {
     when(addressRepository.findAddressByCustomerIdAndAddressId(idAddress))
         .thenReturn(Optional.empty());
     assertThrows(CustomerNotExists.class, () -> addressService.getAddressIdByCustomerId(idAddress));

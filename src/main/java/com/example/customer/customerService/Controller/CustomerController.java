@@ -13,6 +13,7 @@ import com.example.customer.customerService.Service.Imp.AddressService;
 import com.example.customer.customerService.Service.Imp.CustomerService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -37,10 +38,8 @@ public class CustomerController {
   @Autowired
   public CustomerRequestMapper customerRequestMapper;
 
-
   @Autowired
   public AddressRequestMapper addressRequestMapper;
-
 
   @GetMapping("/customer")
   public CustomerResponse getCustomerByDocument(@RequestParam(name = "doc_type") String documentType, @RequestParam(name = "doc_numb") String documentNumber) {
@@ -63,7 +62,6 @@ public class CustomerController {
     return addressService.getAdressesByCustomerId(idCustomer).stream().map(address -> addressResponseMapper.apply(address)).collect(Collectors.toList());
   }
 
-
   @DeleteMapping(path = "/customer/{idCustomer}")
   public void deleteCustomer(@PathVariable(name = "idCustomer") String idCustomer) {
     log.info("Customer deleted with idCustomer: " + idCustomer);
@@ -71,7 +69,7 @@ public class CustomerController {
   }
 
   @PostMapping(path = "/customer")
-  public CustomerResponse createCustomer(@RequestBody CustomerRequest customerRequest) {
+  public CustomerResponse createCustomer(@RequestBody @Validated CustomerRequest customerRequest) {
     log.info("Customer create request");
     Customer customer = customerRequestMapper.apply(customerRequest);
     Customer newCustomer = customerService.createCustomer(customer);

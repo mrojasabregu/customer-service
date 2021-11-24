@@ -71,7 +71,7 @@ public class CustomerServiceTest {
   }
 
   @Test
-  public void createCustomerSuccess(){
+  public void createCustomerSuccess() {
     when(customerRepository.save(fakeCustomer)).thenReturn(fakeCustomer);
     assertEquals(fakeCustomer, customerService.createCustomer(fakeCustomer));
     verify(customerRepository, times(1)).save(fakeCustomer);

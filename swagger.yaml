@@ -57,6 +57,40 @@ paths:
           description: "Internal Server Error"
           schema:
             $ref: "#/definitions/ErrorInternalServerResponse"
+    post:
+      tags:
+      - "Customer"
+      summary: "Create a Customer"
+      operationId: "CreateCustomer"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "Customer"
+        description: "Customer that needs to be added to the app"
+        required: true
+        schema:
+          $ref: "#/definitions/CustomerRequest"
+      responses:
+        201:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/Customer"
+        400:
+          description: "Bad Request"
+          schema:
+            $ref: "#/definitions/ErrorBadRequestResponse"
+        404:
+          description: "Not Found"
+          schema:
+            $ref: "#/definitions/ErrorNotFoundResponse"
+        500:
+          description: "Internal Server Error"
+          schema:
+            $ref: "#/definitions/ErrorInternalServerResponse"
+
 
   /customers:
     get:
@@ -78,7 +112,6 @@ paths:
               - last_name
               - email
               - phone
-
       responses:
         200:
           description: "OK"
@@ -96,6 +129,41 @@ paths:
           description: "Internal Server Error"
           schema:
             $ref: "#/definitions/ErrorInternalServerResponse"
+
+    post:
+      tags:
+      - "Address"
+      summary: "Create an Address"
+      operationId: "CreateAddress"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "Address"
+        description: "Address that needs to be added to the app"
+        required: true
+        schema:
+          $ref: "#/definitions/AddressRequest"
+      responses:
+        201:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/Address"
+        400:
+          description: "Bad Request"
+          schema:
+            $ref: "#/definitions/ErrorBadRequestResponse"
+        404:
+          description: "Not Found"
+          schema:
+            $ref: "#/definitions/ErrorNotFoundResponse"
+        500:
+          description: "Internal Server Error"
+          schema:
+            $ref: "#/definitions/ErrorInternalServerResponse"
+
 
   /address/{id_address}:
     get:
@@ -232,6 +300,11 @@ definitions:
     items:
       $ref: "#/definitions/Address"
 
+  ArrayOfAddressRequest:
+    type: "array"
+    items:
+      $ref: "#/definitions/AddressRequest"
+
   Customer:
     type: "object"
     required:
@@ -251,14 +324,41 @@ definitions:
         type: "string"
       documentType:
         type: "string"
-      email:
-        type: "string"
       documentNumber:
+        type: "string"
+      email:
         type: "string"
       phone:
         type: "number"
       address:
         $ref: "#/definitions/ArrayOfAddress"
+  
+  CustomerRequest:
+    type: "object"
+    required:
+      - "name"
+      - "last_name"
+      - "document_type"
+      - "document_number"
+      - "email"
+      - "phone"
+      - "address"
+    properties:
+      name:
+        type: "string"
+      lastName:
+        type: "string"
+      documentType:
+        type: "string"
+      documentNumber:
+        type: "string"
+      email:
+        type: "string"
+      phone:
+        type: "number"
+      addresses:
+        $ref: "#/definitions/ArrayOfAddressRequest"
+      
 
   Address:
     type: "object"
@@ -271,6 +371,26 @@ definitions:
     properties:
       idAddress:
         type: "string"
+      city:
+        type: "string"
+      street:
+        type: "string"
+      streetNumber:
+        type: "number"
+      floor:
+        type: "number"
+      flat:
+        type: "string"
+
+  AddressRequest:
+    type: "object"
+    required:
+      - "city"
+      - "street"
+      - "street_number"
+      - "floor"
+      - "flat"
+    properties:
       city:
         type: "string"
       street:

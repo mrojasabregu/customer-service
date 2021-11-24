@@ -37,7 +37,6 @@ public class CustomerService implements ICustomerService {
     customerRepository.deleteById(customerId);
   }
 
-
   public Customer createCustomer(Customer customer) {
     customer.setIdCustomer(null);
     return customerRepository.save(customer);
