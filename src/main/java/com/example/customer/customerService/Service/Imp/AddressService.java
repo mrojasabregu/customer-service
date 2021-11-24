@@ -22,4 +22,7 @@ public class AddressService {
     return addressRepository.findAddressByCustomerIdAndAddressId(idAddress).orElseThrow(() -> new CustomerNotExists("Address not found"));
   }
 
+  public void createAddresses(List<Address> addresses) {
+    addressRepository.saveAll(addresses);
+  }
 }

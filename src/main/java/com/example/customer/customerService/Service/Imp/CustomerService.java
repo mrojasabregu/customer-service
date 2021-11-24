@@ -9,7 +9,9 @@ import com.example.customer.customerService.Service.Interface.ICustomerService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
+
 @Slf4j
 @Service
 public class CustomerService implements ICustomerService {
@@ -20,14 +22,13 @@ public class CustomerService implements ICustomerService {
   @Autowired
   private IAddressRepository addressRepository;
 
-  public Customer findByDocTypeAndDocNumber(String documentNumber, String documentType){
-    return customerRepository.findByDocTypeAndDocNumber(documentNumber, documentType).orElseThrow(()-> new CustomerNotExists("Customer not found"));
+  public Customer findByDocTypeAndDocNumber(String documentNumber, String documentType) {
+    return customerRepository.findByDocTypeAndDocNumber(documentNumber, documentType).orElseThrow(() -> new CustomerNotExists("Customer not found"));
   }
 
   public List<Customer> getCustomers(String name, String lastName, String email, String phone) {
     return customerDao.findByParams(name, lastName, email, phone);
   }
-
 
   public void deleteCustomer(String customerId) {
     log.info("Deleting customer with id: " + customerId);
@@ -36,5 +37,9 @@ public class CustomerService implements ICustomerService {
     customerRepository.deleteById(customerId);
   }
 
+  public Customer createCustomer(Customer customer) {
+    customer.setIdCustomer(null);
+    return customerRepository.save(customer);
+  }
 }
 
