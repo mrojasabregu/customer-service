@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
 public class AddressServiceTest {
@@ -148,5 +148,21 @@ public class AddressServiceTest {
     when(addressRepository.findAddressByCustomerIdAndAddressId(idAddress))
         .thenReturn(Optional.empty());
     assertThrows(CustomerNotExists.class, () -> addressService.getAddressIdByCustomerId(idAddress));
+  }
+  @Test
+  public void deleteAddressSuccess() {
+    when(addressRepository.findById(address.getIdAddress())).thenReturn(Optional.of(address));
+
+    addressService.deleteAddressById(address.getIdAddress());
+
+    verify(addressRepository, times(1)).deleteAddressById(address.getIdAddress());
+
+  }
+
+  @Test
+  public void deleteAddressFailByNotExistsCustomer() {
+    when(addressRepository.findById(address.getIdAddress())).thenReturn(Optional.empty());
+    assertThrows(CustomerNotExists.class,() -> addressService.deleteAddressById(address.getIdAddress()));
+    verify(addressRepository, times(0)).deleteAddressById(address.getIdAddress());
   }
 }
