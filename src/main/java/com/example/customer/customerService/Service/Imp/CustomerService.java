@@ -37,9 +37,18 @@ public class CustomerService implements ICustomerService {
     customerRepository.deleteById(customerId);
   }
 
+
   public Customer createCustomer(Customer customer) {
     customer.setIdCustomer(null);
     return customerRepository.save(customer);
   }
+
+  public Customer updateCustomer(Customer customer, String idCustomer) {
+    customerRepository.findById(idCustomer).orElseThrow(() -> new CustomerNotExists("Customer not found"));
+    customerRepository.save(customer);
+    return customer;
+
+  }
+
 }
 

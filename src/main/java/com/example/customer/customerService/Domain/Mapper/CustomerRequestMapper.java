@@ -5,13 +5,12 @@ import com.example.customer.customerService.Domain.Model.Customer;
 import org.springframework.stereotype.Component;
 
 import java.util.function.Function;
-
 @Component
 public class CustomerRequestMapper implements Function<CustomerRequest, Customer> {
 
 
     @Override
-    public Customer apply(CustomerRequest customerRequest) {
+    public  Customer apply(CustomerRequest customerRequest) {
         return Customer.builder()
                 .idCustomer(customerRequest.getIdCustomer())
                 .name(customerRequest.getName())

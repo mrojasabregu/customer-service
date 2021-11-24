@@ -1,7 +1,10 @@
 package com.example.customer.customerService.Controller;
+<<<<<<< HEAD
 
 
 import com.example.customer.customerService.Controller.Request.AddressRequest;
+=======
+>>>>>>> c17e6685d9b45b380b1df7fc53f343faa95e4ee6
 import com.example.customer.customerService.Controller.Request.CustomerRequest;
 import com.example.customer.customerService.Controller.Response.AddressResponse;
 import com.example.customer.customerService.Controller.Response.CustomerResponse;
@@ -38,9 +41,12 @@ public class CustomerController {
   @Autowired
   public CustomerRequestMapper customerRequestMapper;
 
+<<<<<<< HEAD
   @Autowired
   public AddressRequestMapper addressRequestMapper;
 
+=======
+>>>>>>> c17e6685d9b45b380b1df7fc53f343faa95e4ee6
   @GetMapping("/customer")
   public CustomerResponse getCustomerByDocument(@RequestParam(name = "doc_type") String documentType, @RequestParam(name = "doc_numb") String documentNumber) {
     log.info("Customer requested with documentType: " + documentType + " and documentNumber: " + documentNumber);
@@ -68,6 +74,7 @@ public class CustomerController {
     log.info("Customer deleted with idCustomer: " + idCustomer);
     customerService.deleteCustomer(idCustomer);
   }
+<<<<<<< HEAD
 
   @PostMapping(path = "/customer")
   public CustomerResponse createCustomer(@RequestBody CustomerRequest customerRequest) {
@@ -78,5 +85,12 @@ public class CustomerController {
     addressesRequest.stream().forEach(request -> request.setIdCustomer(customer.getIdCustomer()));
     addressService.createAddresses(addressesRequest.stream().map(addressRequestMapper::apply).collect(Collectors.toList()));
     return customerResponseMapper.apply(newCustomer);
+=======
+  @PutMapping(path = "/customer/{idCustomer}")
+  public CustomerResponse updateCustomer(@PathVariable(name = "idCustomer") String idCustomer, @RequestBody CustomerRequest request) {
+    Customer customer = customerRequestMapper.apply(request);
+    log.info("Customer updated with idCustomer: + idCustomer");
+    return customerResponseMapper.apply(customerService.updateCustomer(customer, idCustomer));
+>>>>>>> c17e6685d9b45b380b1df7fc53f343faa95e4ee6
   }
 }
