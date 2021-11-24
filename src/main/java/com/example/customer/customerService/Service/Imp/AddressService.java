@@ -25,7 +25,6 @@ public class AddressService {
     return addressRepository.findAddressByCustomerIdAndAddressId(idAddress).orElseThrow(() -> new CustomerNotExists("Address not found"));
   }
 
-
   public List<Address> createAddresses(List<Address> addresses) {
     return StreamSupport.stream(addressRepository.saveAll(addresses).spliterator(), false).collect(java.util.stream.Collectors.toList());
   }

@@ -51,7 +51,6 @@ public class GlobalControllerAdvice {
     return errors;
   }
 
-
   @ResponseStatus(HttpStatus.BAD_REQUEST)
   @ExceptionHandler(CustomerExistsException.class)
   public Map<String, String> handlerValidationException(CustomerExistsException ex) {

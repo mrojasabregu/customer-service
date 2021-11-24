@@ -38,10 +38,8 @@ public class CustomerController {
   @Autowired
   public CustomerRequestMapper customerRequestMapper;
 
-
   @Autowired
   public AddressRequestMapper addressRequestMapper;
-
 
   @GetMapping("/customer")
   public CustomerResponse getCustomerByDocument(@RequestParam(name = "doc_type") String documentType, @RequestParam(name = "doc_numb") String documentNumber) {
@@ -63,7 +61,6 @@ public class CustomerController {
     log.info("Customer Addresses requested with idCustomer: " + idCustomer);
     return addressService.getAdressesByCustomerId(idCustomer).stream().map(address -> addressResponseMapper.apply(address)).collect(Collectors.toList());
   }
-
 
   @DeleteMapping(path = "/customer/{idCustomer}")
   public void deleteCustomer(@PathVariable(name = "idCustomer") String idCustomer) {
