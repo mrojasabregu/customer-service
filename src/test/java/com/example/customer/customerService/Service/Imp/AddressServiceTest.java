@@ -157,6 +157,7 @@ public class AddressServiceTest {
     when(addressRepository.saveAll(addressesFakeResponse)).thenReturn(addressesFakeResponse);
     assertEquals(addressesFakeResponse, addressService.createAddresses(addressesFakeResponse));
     verify(addressRepository, times(1)).saveAll(addressesFakeResponse);
+  }
   
   @Test
   public void deleteAddressSuccess() {
