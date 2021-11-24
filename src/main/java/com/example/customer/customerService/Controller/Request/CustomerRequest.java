@@ -1,10 +1,9 @@
 package com.example.customer.customerService.Controller.Request;
 
+import com.example.customer.customerService.Constraints.ValidateDocEnum;
 import lombok.Builder;
 import lombok.Data;
 
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
@@ -23,7 +22,7 @@ public class CustomerRequest {
   private String lastName;
   @Size(min = 8, message = "The documentNumber field must have 8 characters")
   private String documentNumber;
-  @Enumerated(EnumType.STRING)
+  @ValidateDocEnum(targetClassType = docType.class, message = "The documentType field must be DNI, PASSPORT or LC")
   private String type;
   @NotEmpty
   @Email
@@ -33,7 +32,7 @@ public class CustomerRequest {
   private String phone;
   private List<AddressRequest> addresses;
 
-  public enum type {
+  public enum docType {
     DNI, LC, PASSPORT
   }
 }
