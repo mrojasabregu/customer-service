@@ -48,9 +48,14 @@ public class CustomerService implements ICustomerService {
   }
 
   public Customer updateCustomer(Customer customer, String idCustomer) {
+    customer.setIdCustomer(idCustomer);
     customerRepository.findById(idCustomer).orElseThrow(() -> new CustomerNotExists("Customer not found"));
-    customerRepository.save(customer);
-    return customer;
+    try {
+      return customerRepository.save(customer);
+    } catch (Exception e) {
+      log.error("Error creating customer: " + e.getMessage());
+    }
+    throw new DocumentNumberExists("Given Document number belongs to an already registered user");
   }
   public Customer getCustomerById(String idCustomer) {
     return customerRepository.findById(idCustomer).orElseThrow(() -> new CustomerNotExists("Customer not found"));

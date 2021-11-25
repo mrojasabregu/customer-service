@@ -1,10 +1,7 @@
 package com.example.customer.customerService.Controller;
 
 
-import com.example.customer.customerService.Exceptions.AddressNotExists;
-import com.example.customer.customerService.Exceptions.CustomerExistsException;
-import com.example.customer.customerService.Exceptions.CustomerNotExists;
-import com.example.customer.customerService.Exceptions.DocumentNumberExists;
+import com.example.customer.customerService.Exceptions.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -64,6 +61,15 @@ public class GlobalControllerAdvice {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(CustomerExistsException.class)
     public Map<String, String> handlerValidationException(CustomerExistsException ex) {
+        Map<String, String> errors = new HashMap<>();
+        String fieldName = "Error: the given id was already taken";
+        errors.put(fieldName, ex.getMessage());
+        return errors;
+    }
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(DocumentTypeException.class)
+    public Map<String, String> handlerValidationException(DocumentTypeException ex) {
         Map<String, String> errors = new HashMap<>();
         String fieldName = "Error: the given id was already taken";
         errors.put(fieldName, ex.getMessage());

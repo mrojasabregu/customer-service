@@ -27,6 +27,5 @@ public class AddressRequest {
     private Long floor;
     @NotNull
     private String flat;
-    @Positive(message = "The idCustomer field must be positive")
     private String idCustomer;
 }

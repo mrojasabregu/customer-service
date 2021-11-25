@@ -10,12 +10,15 @@ import com.example.customer.customerService.Domain.Mapper.AddressResponseMapper;
 import com.example.customer.customerService.Domain.Mapper.CustomerRequestMapper;
 import com.example.customer.customerService.Domain.Mapper.CustomerResponseMapper;
 import com.example.customer.customerService.Domain.Model.Customer;
+import com.example.customer.customerService.Exceptions.DocumentTypeException;
 import com.example.customer.customerService.Service.Imp.AddressService;
 import com.example.customer.customerService.Service.Imp.CustomerService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -23,6 +26,10 @@ import java.util.stream.Collectors;
 @RequestMapping(path = "/")
 @Slf4j
 public class CustomerController {
+
+  public enum docType {
+    DNI, LC, PASSPORT
+  }
   @Autowired
   public CustomerService customerService;
 
@@ -44,6 +51,9 @@ public class CustomerController {
   @GetMapping("/customer")
   public CustomerResponse getCustomerByDocument(@RequestParam(name = "doc_type") String documentType, @RequestParam(name = "doc_numb")String documentNumber) {
     log.info("Customer requested with documentType: " + documentType + " and documentNumber: " + documentNumber);
+    if(Arrays.stream(docType.values()).filter(d -> d.name().equals(documentType)).count() == 0){
+      throw new DocumentTypeException("Document type not valid");
+    }
     return customerResponseMapper.apply(customerService.findByDocTypeAndDocNumber(documentNumber, documentType));
   }
 
@@ -83,7 +93,7 @@ public class CustomerController {
   @PutMapping(path = "/customer/{idCustomer}")
   public CustomerResponse updateCustomer(@PathVariable(name = "idCustomer") String idCustomer, @RequestBody CustomerRequest request) {
     Customer customer = customerRequestMapper.apply(request);
-    log.info("Customer updated with idCustomer: + idCustomer");
+    log.info("Customer updated with idCustomer:" + idCustomer);
     return customerResponseMapper.apply(customerService.updateCustomer(customer, idCustomer));
   }
 
