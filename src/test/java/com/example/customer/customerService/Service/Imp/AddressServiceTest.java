@@ -4,6 +4,7 @@ import com.example.customer.customerService.Domain.Model.Address;
 import com.example.customer.customerService.Domain.Model.Customer;
 import com.example.customer.customerService.Exceptions.CustomerNotExists;
 import com.example.customer.customerService.Repository.IAddressRepository;
+import com.example.customer.customerService.Repository.ICustomerRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -13,8 +14,7 @@ import org.mockito.junit.MockitoJUnitRunner;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -172,5 +172,12 @@ public class AddressServiceTest {
     assertThrows(CustomerNotExists.class,() -> addressService.deleteAddressById(address.getIdAddress()));
     verify(addressRepository, times(0)).deleteAddressById(address.getIdAddress());
 
+  }
+  
+  
+  @Test
+  public void updateAddress(){
+    when(addressRepository.findById(address.getIdAddress())).thenReturn(Optional.of(fakeCustomerAddresses.get(0)));
+    assertEquals(fakeCustomerAddresses.get(0), addressService.updateAddress(fakeCustomerAddresses.get(0), address.getIdAddress()));
   }
 }
