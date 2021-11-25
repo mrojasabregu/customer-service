@@ -1,5 +1,6 @@
 package com.example.customer.customerService.Service.Imp;
 
+import com.example.customer.customerService.Controller.Request.CustomerRequest;
 import com.example.customer.customerService.Domain.Model.Address;
 import com.example.customer.customerService.Domain.Model.Customer;
 import com.example.customer.customerService.Exceptions.CustomerNotExists;
@@ -43,6 +44,18 @@ public class CustomerServiceTest {
           .documentNumber("1234567")
           .email("asd@gmail.com")
           .phone("844-231-3211").build();
+
+
+  CustomerRequest fakeCustomerRequest =
+            CustomerRequest.builder()
+                    .idCustomer("675a990d-6ed6-425c-8afe-5hs9s617b77b")
+                    .name("Yanina")
+                    .lastName("Vargas")
+                    .type("DNI")
+                    .documentNumber("456789")
+                    .email("asjd@gmail.com")
+                    .phone("456-321-456")
+                    .build();
 
 
 
@@ -95,5 +108,19 @@ public class CustomerServiceTest {
     verify(customerRepository, times(0)).deleteById(fakeCustomer.getIdCustomer());
   }
 
+   @Test
+   public void getCustomerId(){
+    when(customerRepository.findById(fakeCustomer.getIdCustomer())).thenReturn(Optional.of(fakeCustomer));
+    customerService.getCustomerById(fakeCustomer.getIdCustomer());
+    assertEquals(fakeCustomer, customerService.getCustomerById(fakeCustomer.getIdCustomer()));
+
+   }
+
+   @Test
+   public void updateCustomer(){
+    when(customerRepository.findById(fakeCustomer.getIdCustomer())).thenReturn(Optional.of(fakeCustomer));
+    assertEquals(fakeCustomer, customerService.updateCustomer(fakeCustomer, fakeCustomer.getIdCustomer() ));
+
+   }
 
 }

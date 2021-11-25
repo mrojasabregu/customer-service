@@ -176,4 +176,10 @@ public class AddressServiceTest {
     verify(addressRepository, times(0)).deleteAddressById(address.getIdAddress());
 
   }
+
+  @Test
+  public void updateAddress(){
+    when(addressRepository.findById(address.getIdAddress())).thenReturn(Optional.of(fakeCustomerAddresses.get(0)));
+    assertEquals(fakeCustomerAddresses.get(0), addressService.updateAddress(fakeCustomerAddresses.get(0), address.getIdAddress()));
+  }
 }
