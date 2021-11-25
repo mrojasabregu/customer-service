@@ -85,4 +85,9 @@ public class CustomerController {
     log.info("Customer updated with idCustomer: + idCustomer");
     return customerResponseMapper.apply(customerService.updateCustomer(customer, idCustomer));
   }
+
+  @GetMapping(path = "/customer/{idCustomer}")
+  public Customer getCustomerbyid(@PathVariable(name = "idCustomer") String idCustomer){
+    return customerService.getCustomerById(idCustomer);
+  }
 }

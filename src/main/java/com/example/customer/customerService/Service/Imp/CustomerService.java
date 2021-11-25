@@ -49,5 +49,9 @@ public class CustomerService implements ICustomerService {
 
   }
 
+  public Customer getCustomerById(String idCustomer) {
+    return customerRepository.findById(idCustomer).orElseThrow(() -> new CustomerNotExists("Customer not found"));
+  }
+
 }
 
