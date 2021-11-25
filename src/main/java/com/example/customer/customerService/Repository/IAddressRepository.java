@@ -17,10 +17,8 @@ public interface IAddressRepository extends CrudRepository<Address, Long> {
   @Query(value = "SELECT * FROM address WHERE id_address = ?1", nativeQuery = true)
   Optional < Address> findAddressByCustomerIdAndAddressId(String addressId);
 
-
   @Query(value = "SELECT * FROM address WHERE id_address = ?1", nativeQuery = true)
   Optional < Address> findById(String addressId);
-
 
   @Transactional
   @Modifying

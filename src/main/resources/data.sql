@@ -6,7 +6,7 @@ CREATE TABLE customer(
   name VARCHAR(255),
   last_name VARCHAR(255),
   document_type VARCHAR(10),
-  document_number BIGINT,
+  document_number BIGINT UNIQUE,
   email VARCHAR(255),
   phone VARCHAR(255)
 );

@@ -2,6 +2,7 @@ package com.example.customer.customerService.Service.Imp;
 
 import com.example.customer.customerService.Domain.Model.Customer;
 import com.example.customer.customerService.Exceptions.CustomerNotExists;
+import com.example.customer.customerService.Exceptions.DocumentNumberExists;
 import com.example.customer.customerService.Repository.CustomerDao;
 import com.example.customer.customerService.Repository.IAddressRepository;
 import com.example.customer.customerService.Repository.ICustomerRepository;
@@ -36,5 +37,28 @@ public class CustomerService implements ICustomerService {
     customerRepository.deleteById(customerId);
   }
 
+  public Customer createCustomer(Customer customer) {
+    customer.setIdCustomer(null);
+    try {
+      return customerRepository.save(customer);
+    } catch (Exception e) {
+      log.error("Error creating customer: " + e.getMessage());
+    }
+    throw new DocumentNumberExists("Given Document number belongs to an already registered user");
+  }
+
+  public Customer updateCustomer(Customer customer, String idCustomer) {
+    customer.setIdCustomer(idCustomer);
+    customerRepository.findById(idCustomer).orElseThrow(() -> new CustomerNotExists("Customer not found"));
+    try {
+      return customerRepository.save(customer);
+    } catch (Exception e) {
+      log.error("Error creating customer: " + e.getMessage());
+    }
+    throw new DocumentNumberExists("Given Document number belongs to an already registered user");
+  }
+  public Customer getCustomerById(String idCustomer) {
+    return customerRepository.findById(idCustomer).orElseThrow(() -> new CustomerNotExists("Customer not found"));
+  }
 }
 
