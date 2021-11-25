@@ -1,12 +1,10 @@
 package com.example.customer.customerService.Service.Imp;
-
+import com.example.customer.customerService.Controller.Request.CustomerRequest;
 import com.example.customer.customerService.Domain.Model.Customer;
 import com.example.customer.customerService.Exceptions.CustomerNotExists;
 import com.example.customer.customerService.Repository.CustomerDao;
 import com.example.customer.customerService.Repository.ICustomerRepository;
-import org.junit.Ignore;
 import com.example.customer.customerService.Repository.IAddressRepository;
-import com.example.customer.customerService.Repository.ICustomerRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -94,4 +92,19 @@ public class CustomerServiceTest {
     verify(addressRepository, times(0)).deleteByIdCustomer(fakeCustomer.getIdCustomer());
     verify(customerRepository, times(0)).deleteById(fakeCustomer.getIdCustomer());
   }
+  
+  @Test
+   public void getCustomerId(){
+    when(customerRepository.findById(fakeCustomer.getIdCustomer())).thenReturn(Optional.of(fakeCustomer));
+    customerService.getCustomerById(fakeCustomer.getIdCustomer());
+    assertEquals(fakeCustomer, customerService.getCustomerById(fakeCustomer.getIdCustomer()));
+
+   }
+
+   @Test
+   public void updateCustomer(){
+    when(customerRepository.findById(fakeCustomer.getIdCustomer())).thenReturn(Optional.of(fakeCustomer));
+    assertEquals(fakeCustomer, customerService.updateCustomer(fakeCustomer, fakeCustomer.getIdCustomer() ));
+
+   }
 }
