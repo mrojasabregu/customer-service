@@ -5,7 +5,7 @@ spring:
   application:
     name: customer-service
   datasource:
-    url: jdbc:mysql://35.222.177.16:3307/db_customer_service?useUnicode=true&characterEncoding=utf8&useSSL=true
+    url: jdbc:mysql://localhost:3307/db_customer_service?useUnicode=true&characterEncoding=utf8&useSSL=true
     username: user
     password: password
     driverClassName: com.mysql.cj.jdbc.Driver
