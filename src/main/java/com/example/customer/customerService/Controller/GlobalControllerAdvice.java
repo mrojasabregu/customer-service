@@ -3,6 +3,7 @@ package com.example.customer.customerService.Controller;
 
 import com.example.customer.customerService.Exceptions.AddressNotExists;
 import com.example.customer.customerService.Exceptions.CustomerNotExists;
+import com.example.customer.customerService.Exceptions.DocumentNumberExists;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -41,11 +42,18 @@ public class GlobalControllerAdvice {
         return errors;
     }
 
-
-
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(AddressNotExists.class)
     public Map<String, String> handlerValidationException(AddressNotExists ex) {
+        Map<String, String> errors = new HashMap<>();
+        String fieldName = "Error: Address not found";
+        errors.put(fieldName, ex.getMessage());
+        return errors;
+    }
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(DocumentNumberExists.class)
+    public Map<String, String> handlerValidationException(DocumentNumberExists ex) {
         Map<String, String> errors = new HashMap<>();
         String fieldName = "Error: Address not found";
         errors.put(fieldName, ex.getMessage());
