@@ -2,11 +2,11 @@ version: '3.1'
 
 services:
 
-  mysqldb:
+  mysql_db:
     image: mysql
     command: --default-authentication-plugin=mysql_native_password
     restart: always
-    env_file: .env
+    env_file: ./.env
     environment: 
       - MYSQL_ROOT_PASSWORD=$MYSQLDB_ROOT_PASSWORD
       - MYSQL_DATABASE=$MYSQLDB_DATABASE
@@ -17,7 +17,8 @@ services:
 
   app:
     depends_on:
-      - mysqldb
+      - mysql_db
+    command: sh -c './wait-for mysql_db:3306 -- npm start'
     build: .
     image: customer-service_app
     restart: on-failure

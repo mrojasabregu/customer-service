@@ -40,4 +40,10 @@ public class AddressService {
     return addressRepository.save(address);
   }
 
+  public Address updateAddress (Address address, String Address){
+    addressRepository.findById(address.getIdAddress()).orElseThrow(()->new CustomerNotExists("Address not found"));
+    addressRepository.save(address);
+    return address;
+  }
+
 }

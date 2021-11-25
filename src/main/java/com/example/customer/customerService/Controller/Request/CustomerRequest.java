@@ -1,15 +1,15 @@
 package com.example.customer.customerService.Controller.Request;
 
 import com.example.customer.customerService.Constraints.ValidateDocEnum;
-import org.hibernate.validator.constraints.UniqueElements;
-import javax.persistence.UniqueConstraint;
-import java.util.List;
-
 import lombok.Builder;
 import lombok.Data;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.validation.constraints.*;
+
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
+import java.util.List;
+
 @Builder
 @Data
 public class CustomerRequest {

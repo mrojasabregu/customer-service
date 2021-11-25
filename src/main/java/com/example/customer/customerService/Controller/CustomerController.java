@@ -1,9 +1,13 @@
 package com.example.customer.customerService.Controller;
 
 
+import com.example.customer.customerService.Controller.Request.AddressRequest;
+import com.example.customer.customerService.Controller.Request.CustomerRequest;
 import com.example.customer.customerService.Controller.Response.AddressResponse;
 import com.example.customer.customerService.Controller.Response.CustomerResponse;
+import com.example.customer.customerService.Domain.Mapper.AddressRequestMapper;
 import com.example.customer.customerService.Domain.Mapper.AddressResponseMapper;
+import com.example.customer.customerService.Domain.Mapper.CustomerRequestMapper;
 import com.example.customer.customerService.Domain.Mapper.CustomerResponseMapper;
 import com.example.customer.customerService.Domain.Model.Customer;
 import com.example.customer.customerService.Service.Imp.AddressService;
@@ -76,11 +80,15 @@ public class CustomerController {
     return customerResponseMapper.apply(newCustomer);
   }
 
-
   @PutMapping(path = "/customer/{idCustomer}")
   public CustomerResponse updateCustomer(@PathVariable(name = "idCustomer") String idCustomer, @RequestBody CustomerRequest request) {
     Customer customer = customerRequestMapper.apply(request);
     log.info("Customer updated with idCustomer: + idCustomer");
     return customerResponseMapper.apply(customerService.updateCustomer(customer, idCustomer));
+  }
+
+  @GetMapping(path = "/customer/{idCustomer}")
+  public Customer getCustomerbyid(@PathVariable(name = "idCustomer") String idCustomer){
+    return customerService.getCustomerById(idCustomer);
   }
 }
