@@ -13,6 +13,9 @@ tags:
   - name: "Address"
     description: "Address operations"
 
+
+
+
 schemes:
   - "https"
   - "http"
@@ -75,12 +78,180 @@ paths:
               - last_name
               - email
               - phone
-
       responses:
         200:
           description: "OK"
           schema:
             $ref: '#/definitions/ArrayOfCustomers'
+        400:
+          description: "Bad Request"
+          schema:
+            $ref: "#/definitions/ErrorBadRequestResponse"
+        404:
+          description: "Not Found"
+          schema:
+            $ref: "#/definitions/ErrorNotFoundResponse"
+        500:
+          description: "Internal Server Error"
+          schema:
+            $ref: "#/definitions/ErrorInternalServerResponse"
+
+  /customer/{id_customer}:
+    post:
+      tags:
+        - "Customer"
+      summary: "Create a Customer"
+      operationId: "CreateCustomer"
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - name: "id_customer"
+          in: "path"
+          description: "ID of pet to return"
+          required: true
+          type: "string"
+        - in: "body"
+          name: "body"
+          description: "Customer that needs to be added to the app"
+          required: true
+          schema:
+            $ref: "#/definitions/CustomerRequest"
+      responses:
+        201:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/Customer"
+        400:
+          description: "Bad Request"
+          schema:
+            $ref: "#/definitions/ErrorBadRequestResponse"
+        404:
+          description: "Not Found"
+          schema:
+            $ref: "#/definitions/ErrorNotFoundResponse"
+        500:
+          description: "Internal Server Error"
+          schema:
+            $ref: "#/definitions/ErrorInternalServerResponse"
+    get:
+      tags:
+        - "Customer"
+      summary: "Get Customer by id_customer"
+      operationId: "GetCustomerById"
+      produces:
+        - "application/json"
+      parameters:
+        - name: "id_customer"
+          in: "path"
+          description: "Customer id"
+          required: true
+          type: "string"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: '#/definitions/Customer'
+        400:
+          description: "Bad Request"
+          schema:
+            $ref: "#/definitions/ErrorBadRequestResponse"
+        404:
+          description: "Not Found"
+          schema:
+            $ref: "#/definitions/ErrorNotFoundResponse"
+        500:
+          description: "Internal Server Error"
+          schema:
+            $ref: "#/definitions/ErrorInternalServerResponse"
+    delete:
+      tags:
+        - "Customer"
+      summary: "Delete customer by id_customer"
+      operationId: "DeleteCustomerById"
+      produces:
+        - "application/json"
+      parameters:
+        - name: "id_customer"
+          in: "path"
+          description: "Customer id"
+          required: true
+          type: "string"
+      responses:
+        200:
+          description: "OK"
+        400:
+          description: "Bad Request"
+          schema:
+            $ref: "#/definitions/ErrorBadRequestResponse"
+        404:
+          description: "Not Found"
+          schema:
+            $ref: "#/definitions/ErrorNotFoundResponse"
+        500:
+          description: "Internal Server Error"
+          schema:
+            $ref: "#/definitions/ErrorInternalServerResponse"
+    put:
+      tags:
+        - "Customer"
+      summary: "Update Customer"
+      operationId: "UpdateCustomer"
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - name: "id_customer"
+          in: "path"
+          description: "ID of pet to return"
+          required: true
+          type: "string"
+        - in: "body"
+          name: "body"
+          description: "Update Customer"
+          required: true
+          schema:
+            $ref: "#/definitions/CustomerRequest"
+      responses:
+        201:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/Customer"
+        400:
+          description: "Bad Request"
+          schema:
+            $ref: "#/definitions/ErrorBadRequestResponse"
+        404:
+          description: "Not Found"
+          schema:
+            $ref: "#/definitions/ErrorNotFoundResponse"
+        500:
+          description: "Internal Server Error"
+          schema:
+            $ref: "#/definitions/ErrorInternalServerResponse"
+
+
+  /customer/{id_customer}/addresses:
+    get:
+      tags:
+        - "Customer"
+      summary: "Get all Customer's addresses"
+      operationId: "GetCustomerAddresses"
+      produces:
+        - "application/json"
+      parameters:
+        - name: "id_customer"
+          in: "path"
+          description: "Customer id"
+          required: true
+          type: "string"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: '#/definitions/ArrayOfAddress'
         400:
           description: "Bad Request"
           schema:
@@ -126,25 +297,100 @@ paths:
           schema:
             $ref: "#/definitions/ErrorInternalServerResponse"
 
-  /customer/{id_customer}/addresses:
-    get:
+    post:
       tags:
-        - "Customer"
-      summary: "Get all Customer's addresses"
-      operationId: "GetCustomerAddresses"
+        - "Address"
+      summary: "Create an Address"
+      operationId: "CreateAddress"
+      consumes:
+        - "application/json"
       produces:
         - "application/json"
       parameters:
-        - name: "id_customer"
+        - name: "id_address"
           in: "path"
-          description: "Customer id"
+          description: "ID of pet to return"
+          required: true
+          type: "string"
+        - in: "body"
+          name: "body"
+          description: "Address that needs to be added to the app"
+          required: true
+          schema:
+            $ref: "#/definitions/AddressRequest"
+      responses:
+        201:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/Address"
+        400:
+          description: "Bad Request"
+          schema:
+            $ref: "#/definitions/ErrorBadRequestResponse"
+        404:
+          description: "Not Found"
+          schema:
+            $ref: "#/definitions/ErrorNotFoundResponse"
+        500:
+          description: "Internal Server Error"
+          schema:
+            $ref: "#/definitions/ErrorInternalServerResponse"
+
+    delete:
+      tags:
+        - "Address"
+      summary: "Delete Address by id_address"
+      operationId: "DeleteAddressById"
+      produces:
+        - "application/json"
+      parameters:
+        - name: "id_address"
+          in: "path"
+          description: "Address id"
           required: true
           type: "string"
       responses:
         200:
           description: "OK"
+        400:
+          description: "Bad Request"
           schema:
-            $ref: '#/definitions/ArrayOfAddress'
+            $ref: "#/definitions/ErrorBadRequestResponse"
+        404:
+          description: "Not Found"
+          schema:
+            $ref: "#/definitions/ErrorNotFoundResponse"
+        500:
+          description: "Internal Server Error"
+          schema:
+            $ref: "#/definitions/ErrorInternalServerResponse"
+
+    put:
+      tags:
+        - "Address"
+      summary: "Update Address"
+      operationId: "UpdateAddress"
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - name: "id_address"
+          in: "path"
+          description: "ID of pet to return"
+          required: true
+          type: "string"
+        - in: "body"
+          name: "body"
+          description: "Update Address"
+          required: true
+          schema:
+            $ref: "#/definitions/AddressRequest"
+      responses:
+        201:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/Address"
         400:
           description: "Bad Request"
           schema:
@@ -159,6 +405,7 @@ paths:
             $ref: "#/definitions/ErrorInternalServerResponse"
 
 
+
 definitions:
 
   ArrayOfCustomers:
@@ -170,6 +417,11 @@ definitions:
     type: "array"
     items:
       $ref: "#/definitions/Address"
+
+  ArrayOfAddressRequest:
+    type: "array"
+    items:
+      $ref: "#/definitions/AddressRequest"
 
   Customer:
     type: "object"
@@ -190,14 +442,41 @@ definitions:
         type: "string"
       documentType:
         type: "string"
-      email:
-        type: "string"
       documentNumber:
+        type: "string"
+      email:
         type: "string"
       phone:
         type: "number"
       address:
         $ref: "#/definitions/ArrayOfAddress"
+
+  CustomerRequest:
+    type: "object"
+    required:
+      - "name"
+      - "last_name"
+      - "document_type"
+      - "document_number"
+      - "email"
+      - "phone"
+      - "address"
+    properties:
+      name:
+        type: "string"
+      lastName:
+        type: "string"
+      documentType:
+        type: "string"
+      documentNumber:
+        type: "string"
+      email:
+        type: "string"
+      phone:
+        type: "number"
+      addresses:
+        $ref: "#/definitions/ArrayOfAddressRequest"
+
 
   Address:
     type: "object"
@@ -210,6 +489,26 @@ definitions:
     properties:
       idAddress:
         type: "string"
+      city:
+        type: "string"
+      street:
+        type: "string"
+      streetNumber:
+        type: "number"
+      floor:
+        type: "number"
+      flat:
+        type: "string"
+
+  AddressRequest:
+    type: "object"
+    required:
+      - "city"
+      - "street"
+      - "street_number"
+      - "floor"
+      - "flat"
+    properties:
       city:
         type: "string"
       street:

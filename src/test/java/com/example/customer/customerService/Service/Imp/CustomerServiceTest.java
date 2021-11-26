@@ -1,21 +1,17 @@
 package com.example.customer.customerService.Service.Imp;
-
+import com.example.customer.customerService.Controller.Request.CustomerRequest;
 import com.example.customer.customerService.Domain.Model.Customer;
 import com.example.customer.customerService.Exceptions.CustomerNotExists;
 import com.example.customer.customerService.Repository.CustomerDao;
 import com.example.customer.customerService.Repository.ICustomerRepository;
-import org.junit.Ignore;
 import com.example.customer.customerService.Repository.IAddressRepository;
-import com.example.customer.customerService.Repository.ICustomerRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
-
 import java.util.Arrays;
 import java.util.Optional;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
@@ -69,4 +65,44 @@ public class CustomerServiceTest {
     assertEquals(Arrays.asList(fakeCustomer), customerService.getCustomers(fakeCustomer.getName(), fakeCustomer.getLastName(), fakeCustomer.getEmail(), null));
     assertEquals(Arrays.asList(fakeCustomer), customerService.getCustomers(fakeCustomer.getName(), fakeCustomer.getLastName(), fakeCustomer.getEmail(), fakeCustomer.getPhone()));
   }
+
+  @Test
+  public void createCustomerSuccess() {
+    when(customerRepository.save(fakeCustomer)).thenReturn(fakeCustomer);
+    assertEquals(fakeCustomer, customerService.createCustomer(fakeCustomer));
+    verify(customerRepository, times(1)).save(fakeCustomer);
+  }
+
+  @Test
+  public void deleteCustomerSuccess() {
+    when(customerRepository.findById(fakeCustomer.getIdCustomer())).thenReturn(Optional.of(fakeCustomer));
+
+    customerService.deleteCustomer(fakeCustomer.getIdCustomer());
+
+    verify(addressRepository, times(1)).deleteByIdCustomer(fakeCustomer.getIdCustomer());
+    verify(customerRepository, times(1)).deleteById(fakeCustomer.getIdCustomer());
+  }
+
+  @Test
+  public void deleteCustomerFailByNotExistsCustomer() {
+    when(customerRepository.findById(fakeCustomer.getIdCustomer())).thenReturn(Optional.empty());
+    assertThrows(CustomerNotExists.class,() -> customerService.deleteCustomer(fakeCustomer.getIdCustomer()));
+    verify(addressRepository, times(0)).deleteByIdCustomer(fakeCustomer.getIdCustomer());
+    verify(customerRepository, times(0)).deleteById(fakeCustomer.getIdCustomer());
+  }
+  
+  @Test
+   public void getCustomerId(){
+    when(customerRepository.findById(fakeCustomer.getIdCustomer())).thenReturn(Optional.of(fakeCustomer));
+    customerService.getCustomerById(fakeCustomer.getIdCustomer());
+    assertEquals(fakeCustomer, customerService.getCustomerById(fakeCustomer.getIdCustomer()));
+
+   }
+
+   @Test
+   public void updateCustomer(){
+    when(customerRepository.findById(fakeCustomer.getIdCustomer())).thenReturn(Optional.of(fakeCustomer));
+    assertEquals(fakeCustomer, customerService.updateCustomer(fakeCustomer, fakeCustomer.getIdCustomer() ));
+
+   }
 }

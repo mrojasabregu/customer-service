@@ -9,7 +9,6 @@ import java.util.function.Function;
 @Component
 public class CustomerRequestMapper implements Function<CustomerRequest, Customer> {
 
-
     @Override
     public Customer apply(CustomerRequest customerRequest) {
         return Customer.builder()

@@ -14,7 +14,8 @@ import javax.transaction.Transactional;
 @Builder
 @Data
 @Entity
-@Table(name = "customer")
+@Table(name = "customer",
+    uniqueConstraints = {@UniqueConstraint(columnNames = "document_number")})
 public class Customer {
     @Id
     @GeneratedValue(generator = "uuid")
@@ -26,7 +27,7 @@ public class Customer {
     private String lastName;
     @Column(name = "document_type")
     private String type;
-    @Column(name = "document_number")
+    @Column(unique = true, name = "document_number")
     private String documentNumber;
     private String email;
     private String phone;

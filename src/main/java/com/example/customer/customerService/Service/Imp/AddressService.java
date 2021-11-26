@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.StreamSupport;
+
 @Slf4j
 @Service
 public class AddressService {
@@ -23,10 +25,25 @@ public class AddressService {
     return addressRepository.findAddressByCustomerIdAndAddressId(idAddress).orElseThrow(() -> new CustomerNotExists("Address not found"));
   }
 
+  public List<Address> createAddresses(List<Address> addresses) {
+    return StreamSupport.stream(addressRepository.saveAll(addresses).spliterator(), false).collect(java.util.stream.Collectors.toList());
+  }
+
   public void deleteAddressById(String addressId) {
     log.info("Deleting Address with id: " + addressId);
     addressRepository.findById(addressId).orElseThrow(() -> new CustomerNotExists("Address not found"));
     addressRepository.deleteAddressById(addressId);
+  }
+
+  public Address createAddress(Address address) {
+    address.setIdAddress(null);
+    return addressRepository.save(address);
+  }
+
+  public Address updateAddress (Address address, String Address){
+    addressRepository.findById(address.getIdAddress()).orElseThrow(()->new CustomerNotExists("Address not found"));
+    addressRepository.save(address);
+    return address;
   }
 
 }
