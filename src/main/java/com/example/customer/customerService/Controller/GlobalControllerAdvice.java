@@ -71,7 +71,7 @@ public class GlobalControllerAdvice {
     @ExceptionHandler(DocumentTypeException.class)
     public Map<String, String> handlerValidationException(DocumentTypeException ex) {
         Map<String, String> errors = new HashMap<>();
-        String fieldName = "Error: the given id was already taken";
+        String fieldName = "Error: invalid document type";
         errors.put(fieldName, ex.getMessage());
         return errors;
     }

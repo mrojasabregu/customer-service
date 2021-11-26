@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
 public class CustomerController {
 
   public enum docType {
-    DNI, LC, PASSPORT
+    DNI, LC, PASAPORTE
   }
   @Autowired
   public CustomerService customerService;

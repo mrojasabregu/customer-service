@@ -31,6 +31,6 @@ public class CustomerRequest {
   private List<AddressRequest> addresses;
 
   public enum docType {
-    DNI, LC, PASSPORT
+    DNI, LC, PASAPORTE
   }
 }
