@@ -1,13 +1,9 @@
 package com.example.customer.customerService.Controller;
 
 
-import com.example.customer.customerService.Controller.Request.AddressRequest;
-import com.example.customer.customerService.Controller.Request.CustomerRequest;
 import com.example.customer.customerService.Controller.Response.AddressResponse;
 import com.example.customer.customerService.Controller.Response.CustomerResponse;
-import com.example.customer.customerService.Domain.Mapper.AddressRequestMapper;
 import com.example.customer.customerService.Domain.Mapper.AddressResponseMapper;
-import com.example.customer.customerService.Domain.Mapper.CustomerRequestMapper;
 import com.example.customer.customerService.Domain.Mapper.CustomerResponseMapper;
 import com.example.customer.customerService.Domain.Model.Customer;
 import com.example.customer.customerService.Exceptions.DocumentTypeException;
@@ -17,11 +13,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
-
 @RestController
 @RequestMapping(path = "/")
 @Slf4j

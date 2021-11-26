@@ -3,13 +3,11 @@ package com.example.customer.customerService.Controller.Request;
 import com.example.customer.customerService.Constraints.ValidateDocEnum;
 import lombok.Builder;
 import lombok.Data;
-
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 import java.util.List;
-
 @Builder
 @Data
 public class CustomerRequest {
