@@ -10,3 +10,6 @@
 6. correr docker run -p 8085:8085/tcp customer-service
 
 La aplicacion estara disponible en el puerto 8085 de localhost
+
+## coleccion en postman con los endpoints
+https://www.postman.com/collections/c9f9c943a6eadb5ab67b
